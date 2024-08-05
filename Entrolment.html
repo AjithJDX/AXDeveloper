@@ -11,17 +11,13 @@
 
     <style>
         body {
-    font-family: 'Nunito', sans-serif;
-    background-repeat: no-repeat;
-    height: 100vh;
-    background-position: center;
-    background-size: cover;
-	/* background-image:
-		url('https://img.freepik.com/premium-photo/there-is-truck-that-is-driving-down-street-with-many-boxes-it-generative-ai_1034997-104410.jpg?w=1060');
-		 */
-	color: white;
-}
-
+            font-family: 'Nunito', sans-serif;
+            background-repeat: no-repeat;
+            height: 100vh;
+            background-position: center;
+            background-size: cover;
+            color: white;
+        }
         .form-control {
             border-color: white;
             border-bottom: 2px solid blue;
@@ -55,18 +51,18 @@
             padding: 2rem;
         }
         .underline {
-    position: relative;
-    color: red;
-}
-.underline::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 100%;
-    height: 3px;
-    background-color: red;
-}
+            position: relative;
+            color: red;
+        }
+        .underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 3px;
+            background-color: red;
+        }
     </style>
 </head>
 <body>
@@ -85,12 +81,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="Datatable.html">DataTable</a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
-                    </li> -->
                 </ul>
             </div>
         </div>
@@ -98,7 +88,7 @@
 
     <div class="container mt-5">
         <form id="dataForm">
-            <h3 class="text-center mt-1 " style="color: #1b2f45; font-weight: bold;">
+            <h3 class="text-center mt-1" style="color: #1b2f45; font-weight: bold;">
                 Audit <span class="underline">Assignment</span> Details
             </h3>
             <!-- Input Fields -->
@@ -193,13 +183,83 @@
 
     <script>
         $(document).ready(function() {
-            const currentDateInput = document.getElementById('currentDate');
-            const today = new Date().toISOString().split('T')[0];
-            currentDateInput.value = today;
+            // Function to handle file upload to GitHub
+            function uploadToGitHub(content, path, message) {
+                const token = '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';
+                const repo = 'ajithjdx/AXDeveloper'; // Replace with your repo name
+                const branch = 'main'; // Replace with your branch name
+                const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}`;
+    
+                // Get the existing file SHA if it exists
+                fetch(apiUrl, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const sha = data.sha;
+    
+                    const payload = {
+                        message: message,
+                        content: btoa(content), // Base64 encode the file content
+                        branch: branch
+                    };
+    
+                    if (sha) {
+                        payload.sha = sha; // Include the SHA if updating an existing file
+                    }
+    
+                    // Create or update the file on GitHub
+                    fetch(apiUrl, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.content && data.content.sha) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Form Submitted',
+                                text: 'Your form data has been saved to GitHub!'
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Submission Failed',
+                                text: 'Could not save form data to GitHub. Please try again.'
+                            });
+                        }
+                    })
+                    .catch(error => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Submission Failed',
+                            text: 'Could not save form data to GitHub. Please try again.'
+                        });
+                        console.error('GitHub API error:', error);
+                    });
+                })
+                .catch(error => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Submission Failed',
+                        text: 'Could not fetch existing file SHA from GitHub. Please try again.'
+                    });
+                    console.error('GitHub API error:', error);
+                });
+            }
+    
             $('#dataForm').on('submit', function(event) {
                 event.preventDefault();
-
-                // Get form input values
+    
+                // Collect form data
                 const EntreDate = $('#currentDate').val();
                 const input1 = $('#input1').val();
                 const input2 = $('#input2').val();
@@ -211,11 +271,8 @@
                 const select3 = $('#select3').val();
                 const select4 = $('#select4').val();
                 const select5 = $('#select5').val();
-
-                console.log("Inputs: ", EntreDate,input1, input2, input3, input4, input5);
-                console.log("Selects: ", select1, select2, select3, select4, select5);
-
-                // Create or update the workbook
+    
+                // Create or update workbook
                 let wb;
                 const existingFile = localStorage.getItem('excelData');
                 if (existingFile) {
@@ -224,25 +281,24 @@
                 } else {
                     // Create a new workbook
                     wb = XLSX.utils.book_new();
-                    // Create the header row
-                    const header = ['EntreDate','Input 1', 'Input 2', 'Input 3', 'Input 4', 'Input 5', 'Select 1', 'Select 2', 'Select 3', 'Select 4', 'Select 5'];
+                    const header = ['EntreDate', 'Input 1', 'Input 2', 'Input 3', 'Input 4', 'Input 5', 'Select 1', 'Select 2', 'Select 3', 'Select 4', 'Select 5'];
                     const ws_data = [header];
                     const ws = XLSX.utils.aoa_to_sheet(ws_data);
                     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
                 }
-
+    
                 // Append new data to the worksheet
                 const ws = wb.Sheets['Sheet1'];
                 const existingData = XLSX.utils.sheet_to_json(ws, { header: 1 });
-                existingData.push([EntreDate,input1, input2, input3, input4, input5, select1, select2, select3, select4, select5]);
+                existingData.push([EntreDate, input1, input2, input3, input4, input5, select1, select2, select3, select4, select5]);
                 const updatedWs = XLSX.utils.aoa_to_sheet(existingData);
                 wb.Sheets['Sheet1'] = updatedWs;
-
+    
                 // Generate XLSX file and store in localStorage
                 const wbOut = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
                 const wbBase64 = btoa(String.fromCharCode(...new Uint8Array(wbOut)));
                 localStorage.setItem('excelData', wbBase64);
-
+    
                 // Create a download link and trigger download with timestamp
                 const now = new Date();
                 const timestamp = [
@@ -254,7 +310,7 @@
                     String(now.getMinutes()).padStart(2, '0'),
                     String(now.getSeconds()).padStart(2, '0')
                 ].join('-');
-                
+    
                 const filename = `Form_data_${timestamp}.xlsx`;
                 const blob = new Blob([wbOut], { type: 'application/octet-stream' });
                 const url = URL.createObjectURL(blob);
@@ -264,14 +320,18 @@
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Form Submitted',
-                    text: 'Your form data has been saved to an Excel file!'
-                });
+    
+                // Prepare content for GitHub upload
+                const content = JSON.stringify(existingData);
+                const path = 'path/to/your/file/Form_data.json'; // Adjust the path as needed
+                const message = `Add form data ${timestamp}`;
+    
+                // Call the function to upload to GitHub
+                uploadToGitHub(content, path, message);
             });
         });
     </script>
 </body>
 </html>
+
+    
