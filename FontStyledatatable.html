@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Samples DataTable</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@400;700&family=Montserrat:wght@400;700&family=Lora:wght@400;700&family=Oswald:wght@400;700&family=Raleway:wght@400;700&family=PT+Sans:wght@400;700&family=Source+Sans+Pro:wght@400;700&family=Merriweather:wght@400;700&family=Playfair+Display:wght@400;700&family=Nunito:wght@400;700&family=Quicksand:wght@400;700&family=Ubuntu:wght@400;700&family=Fira+Sans:wght@400;700&family=Arimo:wght@400;700&family=Karla:wght@400;700&family=Varela+Round:wght@400;700&family=Overpass:wght@400;700&family=Inconsolata:wght@400;700&family=Asap:wght@400;700&family=Hind:wght@400;700&family=Cabin:wght@400;700&family=Julius+Sans+One:wght@400;700&family=Rokkitt:wght@400;700&family=Zilla+Slab:wght@400;700&family=Slabo+27px:wght@400;700&family=DM+Sans:wght@400;700&family=Work+Sans:wght@400;700&family=Poppins:wght@400;700&family=IBM+Plex+Sans:wght@400;700&family=Space+Mono:wght@400;700&family=Crimson+Text:wght@400;700&family=Julius+Sans+One:wght@400;700&family=Amatic+SC:wght@400;700&family=El+Messiri:wght@400;700&family=Kanit:wght@400;700&family=League+Spartan:wght@400;700&family=Noticia+Text:wght@400;700&family=Staatliches:wght@400;700&family=Quattrocento:wght@400;700&family=Red+Hat+Text:wght@400;700&family=Rasa:wght@400;700&family=Crimson+Text:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Alata&family=Barlow:wght@400;700&family=Basic&family=Be+Vietnam:wght@400;700&family=Big+Shoulders+Display:wght@400;700&family=Calistoga&family=Chivo:wght@400;700&family=Chonburi&family=Crimson+Pro:wght@400;700&family=Cuprum:wght@400;700&family=Dancing+Script:wght@400;700&family=DM+Serif+Display&family=Ephesis&family=Exo:wght@400;700&family=Fira+Code:wght@400;700&family=Gloock:wght@400;700&family=Gloock:wght@400;700&family=Hammersmith+One&family=Hind+Siliguri:wght@400;700&family=Holtwood+One+SC&family=Julius+Sans+One&family=Kumbh+Sans:wght@400;700&family=Langar&family=Lato:wght@400;700&family=Lobster&family=Martel:wght@400;700&family=Monofett&family=Noto+Sans:wght@400;700&family=Oxygen:wght@400;700&family=Patrick+Hand&family=Proza+Libre:wght@400;700&family=Questrial&family=Quicksand:wght@400;700&family=Rasa:wght@400;700&family=Rock+Salt&family=Sail&family=Shadows+Into+Light&family=Shanti&family=Sigmar+One&family=Syncopate&family=Titillium+Web:wght@400;700&family=Ultra&family=Yesteryear&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Baloo&family=Barlow:wght@400;600&family=Barlow+Condensed:wght@400;600&family=Be+Vietnam:wght@400;700&family=Bebas+Neue&family=Bitter:wght@400;700&family=Black+Ops+One&family=Blaka&family=Caladea:wght@400;700&family=Caveat:wght@400;700&family=Changa:wght@400;700&family=Chivo+Mono:wght@400;700&family=Comfortaa:wght@400;700&family=Concert+One&family=Courier+Prime&family=Crimson+Pro:wght@400;700&family=David+Libre:wght@400;700&family=Exo+2:wght@400;700&family=Finger+Paint&family=Fredericka+the+Great&family=Gentium+Basic:wght@400;700&family=Gloock:wght@400;700&family=Grand+Hotel&family=Julee&family=Kalam:wght@400;700&family=Kaushan+Script&family=Khula:wght@400;700&family=Korolev:wght@400;700&family=Marck+Script&family=Mate:wght@400;700&family=Mojo&family=Montserrat:wght@400;700&family=Patrick+Hand+SC&family=Paytone+One&family=Palanquin:wght@400;700&family=Rochester&family=Rosarivo:wght@400;700&family=Salsa&family=Sansita:wght@400;700&family=Staatliches&family=Stint+Ultra+Condensed&family=Tisa:wght@400;700&family=Varela:wght@400;700&family=Viga:wght@400;700&family=Vollkorn:wght@400;700&family=Yanone+Kaffeesatz:wght@400;700&family=Yellowtail&family=Zeyada&family=Varela+Round&family=Zilla+Slab:wght@400;700&family=Arvo:wght@400;700&family=Assistant:wght@400;700&family=Chivo&family=Fira+Sans:wght@400;700&family=Julius+Sans+One&family=Hind:wght@400;700&family=Raleway:wght@400;700&family=Russo+One&family=Secular+One&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .header {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            padding: 1rem;
+            background-color: #f4f4f4;
+        }
+        .footer {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 0.875rem;
+            color: #999;
+            text-align: center;
+            padding: 1rem;
+            background-color: #f4f4f4;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0.5rem;
+            margin: 0.2rem;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background-color: #007bff;
+            color: #fff;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="header">
+        Font Samples DataTable
+    </div>
+
+    <div class="container" style="padding: 1rem;">
+        <table id="fontTable" class="display">
+            <thead>
+                <tr>
+                    <th>Font Name</th>
+                    <th>Sample Text</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Architects Daughter</td>
+                    <td style="font-family: 'Architects Daughter', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Baloo</td>
+                    <td style="font-family: 'Baloo', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Barlow</td>
+                    <td style="font-family: 'Barlow', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Barlow Condensed</td>
+                    <td style="font-family: 'Barlow Condensed', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Be Vietnam</td>
+                    <td style="font-family: 'Be Vietnam', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Bebas Neue</td>
+                    <td style="font-family: 'Bebas Neue', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Bitter</td>
+                    <td style="font-family: 'Bitter', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Black Ops One</td>
+                    <td style="font-family: 'Black Ops One', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Blaka</td>
+                    <td style="font-family: 'Blaka', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Caladea</td>
+                    <td style="font-family: 'Caladea', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Caveat</td>
+                    <td style="font-family: 'Caveat', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Changa</td>
+                    <td style="font-family: 'Changa', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Chivo Mono</td>
+                    <td style="font-family: 'Chivo Mono', monospace;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Comfortaa</td>
+                    <td style="font-family: 'Comfortaa', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Concert One</td>
+                    <td style="font-family: 'Concert One', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Courier Prime</td>
+                    <td style="font-family: 'Courier Prime', monospace;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Crimson Pro</td>
+                    <td style="font-family: 'Crimson Pro', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>David Libre</td>
+                    <td style="font-family: 'David Libre', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Exo 2</td>
+                    <td style="font-family: 'Exo 2', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Finger Paint</td>
+                    <td style="font-family: 'Finger Paint', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Fredericka the Great</td>
+                    <td style="font-family: 'Fredericka the Great', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Gentium Basic</td>
+                    <td style="font-family: 'Gentium Basic', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Gloock</td>
+                    <td style="font-family: 'Gloock', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Grand Hotel</td>
+                    <td style="font-family: 'Grand Hotel', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Julee</td>
+                    <td style="font-family: 'Julee', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Kalam</td>
+                    <td style="font-family: 'Kalam', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Kaushan Script</td>
+                    <td style="font-family: 'Kaushan Script', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Khula</td>
+                    <td style="font-family: 'Khula', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Korolev</td>
+                    <td style="font-family: 'Korolev', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Marck Script</td>
+                    <td style="font-family: 'Marck Script', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Mate</td>
+                    <td style="font-family: 'Mate', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Mojo</td>
+                    <td style="font-family: 'Mojo', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Monserrat</td>
+                    <td style="font-family: 'Montserrat', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Patrick Hand SC</td>
+                    <td style="font-family: 'Patrick Hand SC', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Paytone One</td>
+                    <td style="font-family: 'Paytone One', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Palanquin</td>
+                    <td style="font-family: 'Palanquin', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Rochester</td>
+                    <td style="font-family: 'Rochester', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Rosarivo</td>
+                    <td style="font-family: 'Rosarivo', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Salsa</td>
+                    <td style="font-family: 'Salsa', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Sansita</td>
+                    <td style="font-family: 'Sansita', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Staatliches</td>
+                    <td style="font-family: 'Staatliches', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Stint Ultra Condensed</td>
+                    <td style="font-family: 'Stint Ultra Condensed', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Tisa</td>
+                    <td style="font-family: 'Tisa', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Varela</td>
+                    <td style="font-family: 'Varela', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Viga</td>
+                    <td style="font-family: 'Viga', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Vollkorn</td>
+                    <td style="font-family: 'Vollkorn', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Yanone Kaffeesatz</td>
+                    <td style="font-family: 'Yanone Kaffeesatz', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Yellowtail</td>
+                    <td style="font-family: 'Yellowtail', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Zeyada</td>
+                    <td style="font-family: 'Zeyada', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Varela Round</td>
+                    <td style="font-family: 'Varela Round', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Zilla Slab</td>
+                    <td style="font-family: 'Zilla Slab', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Arvo</td>
+                    <td style="font-family: 'Arvo', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Assistant</td>
+                    <td style="font-family: 'Assistant', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Chivo</td>
+                    <td style="font-family: 'Chivo', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Fira Sans</td>
+                    <td style="font-family: 'Fira Sans', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Gloock</td>
+                    <td style="font-family: 'Gloock', serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Julius Sans</td>
+                    <td style="font-family: 'Julius Sans', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Hind</td>
+                    <td style="font-family: 'Hind', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Raleway</td>
+                    <td style="font-family: 'Raleway', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Russo One</td>
+                    <td style="font-family: 'Russo One', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Secular One</td>
+                    <td style="font-family: 'Secular One', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+                <tr>
+                    <td>Shadows Into Light Two</td>
+                    <td style="font-family: 'Shadows Into Light Two', cursive;">The quick brown fox jumps over the lazy dog.</td>
+                </tr>
+    <tr>
+        <td>Roboto</td>
+        <td style="font-family: 'Roboto', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Oswald</td>
+        <td style="font-family: 'Oswald', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Raleway</td>
+        <td style="font-family: 'Raleway', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>PT Sans</td>
+        <td style="font-family: 'PT Sans', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Source Sans Pro</td>
+        <td style="font-family: 'Source Sans Pro', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Merriweather</td>
+        <td style="font-family: 'Merriweather', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Playfair Display</td>
+        <td style="font-family: 'Playfair Display', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Nunito</td>
+        <td style="font-family: 'Nunito', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Quicksand</td>
+        <td style="font-family: 'Quicksand', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Ubuntu</td>
+        <td style="font-family: 'Ubuntu', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Fira Sans</td>
+        <td style="font-family: 'Fira Sans', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Arimo</td>
+        <td style="font-family: 'Arimo', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Karla</td>
+        <td style="font-family: 'Karla', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Varela Round</td>
+        <td style="font-family: 'Varela Round', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Overpass</td>
+        <td style="font-family: 'Overpass', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Inconsolata</td>
+        <td style="font-family: 'Inconsolata', monospace;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Asap</td>
+        <td style="font-family: 'Asap', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Hind</td>
+        <td style="font-family: 'Hind', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Cabin</td>
+        <td style="font-family: 'Cabin', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Julius Sans One</td>
+        <td style="font-family: 'Julius Sans One', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Rokkitt</td>
+        <td style="font-family: 'Rokkitt', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Zilla Slab</td>
+        <td style="font-family: 'Zilla Slab', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Slabo 27px</td>
+        <td style="font-family: 'Slabo 27px', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>DM Sans</td>
+        <td style="font-family: 'DM Sans', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Work Sans</td>
+        <td style="font-family: 'Work Sans', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Poppins</td>
+        <td style="font-family: 'Poppins', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>IBM Plex Sans</td>
+        <td style="font-family: 'IBM Plex Sans', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Space Mono</td>
+        <td style="font-family: 'Space Mono', monospace;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Crimson Text</td>
+        <td style="font-family: 'Crimson Text', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Amatic SC</td>
+        <td style="font-family: 'Amatic SC', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>El Messiri</td>
+        <td style="font-family: 'El Messiri', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Kanit</td>
+        <td style="font-family: 'Kanit', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>League Spartan</td>
+        <td style="font-family: 'League Spartan', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Noticia Text</td>
+        <td style="font-family: 'Noticia Text', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Staatliches</td>
+        <td style="font-family: 'Staatliches', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Quattrocento</td>
+        <td style="font-family: 'Quattrocento', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Red Hat Text</td>
+        <td style="font-family: 'Red Hat Text', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Rasa</td>
+        <td style="font-family: 'Rasa', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Acme</td>
+        <td style="font-family: 'Acme', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Alata</td>
+        <td style="font-family: 'Alata', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Basic</td>
+        <td style="font-family: 'Basic', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Calistoga</td>
+        <td style="font-family: 'Calistoga', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Chivo</td>
+        <td style="font-family: 'Chivo', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Chonburi</td>
+        <td style="font-family: 'Chonburi', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Cuprum</td>
+        <td style="font-family: 'Cuprum', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Dancing Script</td>
+        <td style="font-family: 'Dancing Script', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>DM Serif Display</td>
+        <td style="font-family: 'DM Serif Display', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Ephesis</td>
+        <td style="font-family: 'Ephesis', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Exo</td>
+        <td style="font-family: 'Exo', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Fira Code</td>
+        <td style="font-family: 'Fira Code', monospace;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Gloock</td>
+        <td style="font-family: 'Gloock', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Hammersmith One</td>
+        <td style="font-family: 'Hammersmith One', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Hind Siliguri</td>
+        <td style="font-family: 'Hind Siliguri', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Holtwood One SC</td>
+        <td style="font-family: 'Holtwood One SC', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Julius Sans One</td>
+        <td style="font-family: 'Julius Sans One', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Kumbh Sans</td>
+        <td style="font-family: 'Kumbh Sans', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Langar</td>
+        <td style="font-family: 'Langar', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Lato</td>
+        <td style="font-family: 'Lato', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Lobster</td>
+        <td style="font-family: 'Lobster', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Martel</td>
+        <td style="font-family: 'Martel', serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Monofett</td>
+        <td style="font-family: 'Monofett', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Noto Sans</td>
+        <td style="font-family: 'Noto Sans', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Oxygen</td>
+        <td style="font-family: 'Oxygen', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Patrick Hand</td>
+        <td style="font-family: 'Patrick Hand', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Proza Libre</td>
+        <td style="font-family: 'Proza Libre', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Questrial</td>
+        <td style="font-family: 'Questrial', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Rock Salt</td>
+        <td style="font-family: 'Rock Salt', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Sail</td>
+        <td style="font-family: 'Sail', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Shadows Into Light</td>
+        <td style="font-family: 'Shadows Into Light', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Shanti</td>
+        <td style="font-family: 'Shanti', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Sigmar One</td>
+        <td style="font-family: 'Sigmar One', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Syncopate</td>
+        <td style="font-family: 'Syncopate', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Titillium Web</td>
+        <td style="font-family: 'Titillium Web', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Ultra</td>
+        <td style="font-family: 'Ultra', sans-serif;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+    <tr>
+        <td>Yesteryear</td>
+        <td style="font-family: 'Yesteryear', cursive;">The quick brown fox jumps over the lazy dog.</td>
+    </tr>
+</tbody>
+
+        </table>
+    </div>
+
+    <div class="footer">
+        Footer content here
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <!-- Initialize DataTable -->
+    <script>
+        $(document).ready(function() {
+            $('#fontTable').DataTable();
+        });
+    </script>
+</body>
+</html>

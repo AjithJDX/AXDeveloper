@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Example</title>
+    <!-- Latest Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <!-- jQuery Validation CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="https://themify.me/wp-content/themes/themify-v32/themify-icons/themify-icons.css">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-repeat: no-repeat;
+            height: 100vh;
+            background-position: center;
+            background-size: cover;
+            background-image: url('https://img.freepik.com/premium-photo/there-is-truck-that-is-driving-down-street-with-many-boxes-it-generative-ai_1034997-104410.jpg?w=1060');
+            font-weight: 600;
+            color: white;
+        }
+        .form-control {
+            border-color: white;
+            border-bottom: 2px solid blue;
+        }
+        .form-control:focus {
+            color: #212529;
+            background-color: #fff;
+            border-color: white;
+            border-bottom: 2px solid blue;
+            outline: 0;
+            box-shadow: 0 0 0 .25rem rgba(255, 255, 255, 0.25);
+        }
+        .form-select {
+            border-color: white;
+            border-bottom: 2px solid blue;
+        }
+        .form-select:focus {
+            color: #212529;
+            background-color: #fff;
+            border-color: white;
+            border-bottom: 2px solid blue;
+            outline: 0;
+            box-shadow: 0 0 0 .25rem rgba(255, 255, 255, 0.25);
+        }
+        #navbarNav {
+            justify-content: center;
+        }
+        .container-fluid {
+            width: 95%;
+        }
+        .underline {
+            position: relative;
+            color: red;
+        }
+        .underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 100%;
+            height: 3px;
+            background-color: red;
+        }
+        .card-body {
+            background: none;
+            border: none;
+            box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);
+            padding: 25px;
+            border-left: 4px solid #0d6efd;
+        }
+        .divLoader {
+            position: fixed;
+            left: initial;
+            top: 0%;
+            width: 100%;
+            height: 100%;
+            z-index: 9999;
+            background: #3a3737c9;
+            opacity: 1;
+        }
+        .loader {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            border: 3px solid;
+            border-color: #FFF #FFF transparent transparent;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+        .loader::after,
+        .loader::before {
+            content: '';  
+            box-sizing: border-box;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            border: 3px solid;
+            border-color: transparent transparent #ed1115 #ed1115;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            box-sizing: border-box;
+            animation: rotationBack 0.5s linear infinite;
+            transform-origin: center center;
+        }
+        .loader::before {
+            width: 32px;
+            height: 32px;
+            border-color: #FFF #FFF transparent transparent;
+            animation: rotation 1.5s linear infinite;
+        }
+        @keyframes rotation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        } 
+        @keyframes rotationBack {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(-360deg);
+            }
+        }
+        .nav-link.always-hover {
+            background-color: white;    
+            color: black !important;
+            border-radius: 4px; 
+        }
+        .marquee-container {
+            background-color: #212529;
+            color: white;
+            text-align: center;
+        }
+		.error{
+			color: red;
+		}
+
+        /* Foooter Start */
+        .new_footer_area {
+    background: #fbfbfd;
+}
+
+/* 
+.new_footer_top {
+    padding: 120px 0px 270px;
+    position: relative;
+      overflow-x: hidden;
+}
+.new_footer_area .footer_bottom {
+    padding-top: 5px;
+    padding-bottom: 50px;
+}
+.footer_bottom {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    color: #7f88a6;
+    padding: 27px 0px;
+} */
+/* .new_footer_top .company_widget p {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 28px;
+    color: #6a7695;
+    margin-bottom: 20px;
+}
+.new_footer_top .company_widget .f_subscribe_two .btn_get {
+    border-width: 1px;
+    margin-top: 20px;
+}
+.btn_get_two:hover {
+    background: transparent;
+    color: #5e2ced;
+}
+.btn_get:hover {
+    color: #fff;
+    background: #6754e2;
+    border-color: #6754e2;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
+    text-decoration: none;
+    outline: none;
+}
+
+
+
+.new_footer_top .f_widget.about-widget .f_list li a:hover {
+    color: #5e2ced;
+}
+.new_footer_top .f_widget.about-widget .f_list li {
+    margin-bottom: 11px;
+}
+.f_widget.about-widget .f_list li:last-child {
+    margin-bottom: 0px;
+}
+.f_widget.about-widget .f_list li {
+    margin-bottom: 15px;
+}
+.f_widget.about-widget .f_list {
+    margin-bottom: 0px;
+}
+.new_footer_top .f_social_icon a {
+    width: 44px;
+    height: 44px;
+    line-height: 43px;
+    background: transparent;
+    border: 1px solid #e2e2eb;
+    font-size: 24px;
+}
+.f_social_icon a {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    font-size: 14px;
+    line-height: 45px;
+    color: #858da8;
+    display: inline-block;
+    background: #ebeef5;
+    text-align: center;
+    -webkit-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+.ti-facebook:before {
+    content: "\e741";
+}
+.ti-twitter-alt:before {
+    content: "\e74b";
+}
+.ti-vimeo-alt:before {
+    content: "\e74a";
+}
+.ti-pinterest:before {
+    content: "\e731";
+}
+
+.btn_get_two {
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    background: #5e2ced;
+    border-color: #5e2ced;
+    color: #fff;
+}
+
+.btn_get_two:hover {
+    background: transparent;
+    color: #5e2ced;
+}
+
+.new_footer_top .f_social_icon a:hover {
+    background: #5e2ced;
+    border-color: #5e2ced;
+  color:white;
+}
+.new_footer_top .f_social_icon a + a {
+    margin-left: 4px;
+}
+.new_footer_top .f-title {
+    margin-bottom: 30px;
+    color: #263b5e;
+}
+.f_600 {
+    font-weight: 600;
+}
+.f_size_18 {
+    font-size: 18px;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: #4b505e;
+}
+.new_footer_top .f_widget.about-widget .f_list li a {
+    color: #6a7695;
+} */
+
+/* 
+.new_footer_top .footer_bg {
+    position: absolute;
+    bottom: 0;
+    background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEigB8iI5tb8WSVBuVUGc9UjjB8O0708X7Fdic_4O1LT4CmLHoiwhanLXiRhe82yw0R7LgACQ2IhZaTY0hhmGi0gYp_Ynb49CVzfmXtYHUVKgXXpWvJ_oYT8cB4vzsnJLe3iCwuzj-w6PeYq_JaHmy_CoGoa6nw0FBo-2xLdOPvsLTh_fmYH2xhkaZ-OGQ/s16000/footer_bg.png") no-repeat scroll center 0;
+    width: 100%;
+    height: 266px;
+} */
+
+.new_footer_top .footer_bg .footer_bg_one {
+    background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEia0PYPxwT5ifToyP3SNZeQWfJEWrUENYA5IXM6sN5vLwAKvaJS1pQVu8mOFFUa_ET4JuHNTFAxKURFerJYHDUWXLXl1vDofYXuij45JZelYOjEFoCOn7E6Vxu0fwV7ACPzArcno1rYuVxGB7JY6G7__e4_KZW4lTYIaHSLVaVLzklZBLZnQw047oq5-Q/s16000/volks.gif") no-repeat center center;
+    width: 330px;
+    height: 105px;
+  background-size:100%;
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+    -webkit-animation: myfirst 22s linear infinite;
+    animation: myfirst 22s linear infinite;
+}
+
+.new_footer_top .footer_bg .footer_bg_two {
+    background: url("https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhyLGwEUVwPK6Vi8xXMymsc-ZXVwLWyXhogZxbcXQYSY55REw_0D4VTQnsVzCrL7nsyjd0P7RVOI5NKJbQ75koZIalD8mqbMquP20fL3DxsWngKkOLOzoOf9sMuxlbyfkIBTsDw5WFUj-YJiI50yzgVjF8cZPHhEjkOP_PRTQXDHEq8AyWpBiJdN9SfQA/s16000/cyclist.gif") no-repeat center center;
+    width: 88px;
+    height: 100px;
+  background-size:100%;
+    bottom: 0;
+    left: 38%;
+    position: absolute;
+    -webkit-animation: myfirst 30s linear infinite;
+    animation: myfirst 30s linear infinite;
+}
+
+
+
+@-moz-keyframes myfirst {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@-webkit-keyframes myfirst {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes myfirst {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/*************footer End*****************/
+    </style>
+</head>
+<body>
+    <div class="block-page" id="overlay" style="display: none; background: rgba(255, 255, 255, 0.93) !important; text-align: center;">
+        <div class="divLoader">
+            <div class="" style="margin-top: 20rem;">
+                <span class="loader"></span>
+            </div>
+            <p style="font-size: 15px; font-weight: bold; color: white; margin-bottom: 0px;">Processing Please Wait...</p>
+        </div>
+    </div>
+    <!-- Bootstrap Header -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">My Page</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse d-contents" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active always-hover" href="#">Enrollment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Datatable.html">DataTable</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="marquee-container">
+        <marquee behavior="scroll" direction="left" scrollamount="8">
+            Welcome to our website! We provide the best transport services.
+        </marquee>
+    </div>
+    <h3 class="text-center mt-4" style="color: #1b2f45; font-weight: bold;">Enrollment <span class="underline">'Transport'</span> Details </h3>
+    <div class="container-fluid">
+        <div class="card mt-4">
+            <div class="card-body">
+                <form id="dataForm">
+                    <!-- Input Fields -->
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="input1" class="form-label">Input 1</label>
+                            <input type="text" class="form-control" id="input1" name="input1" placeholder="Input 1">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="input2" class="form-label">Input 2</label>
+                            <input type="text" class="form-control" id="input2" name="input2" placeholder="Input 2">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="input3" class="form-label">Input 3</label>
+                            <input type="text" class="form-control" id="input3" name="input3" placeholder="Input 3">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="input4" class="form-label">Input 4</label>
+                            <input type="text" class="form-control" id="input4" name="input4" placeholder="Input 4">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="input5" class="form-label">Input 5</label>
+                            <input type="text" class="form-control" id="input5" name="input5" placeholder="Input 5">
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="currentDate" class="form-label">Current Date</label>
+                            <input type="date" class="form-control" id="currentDate" name="currentDate">
+                        </div>
+                    </div>
+                    <!-- Select Dropdown Fields -->
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="select1" class="form-label">Select 1</label>
+                            <select class="form-select" id="select1" name="select1">
+                                <option selected disabled>Select an option</option>
+                                <option value="Option1">Option 1</option>
+                                <option value="Option2">Option 2</option>
+                                <option value="Option3">Option 3</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="select2" class="form-label">Select 2</label>
+                            <select class="form-select" id="select2" name="select2">
+                                <option selected disabled>Select an option</option>
+                                <option value="Option1">Option 1</option>
+                                <option value="Option2">Option 2</option>
+                                <option value="Option3">Option 3</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="select3" class="form-label">Select 3</label>
+                            <select class="form-select" id="select3" name="select3">
+                                <option selected disabled>Select an option</option>
+                                <option value="Option1">Option 1</option>
+                                <option value="Option2">Option 2</option>
+                                <option value="Option3">Option 3</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="select4" class="form-label">Select 4</label>
+                            <select class="form-select" id="select4" name="select4">
+                                <option selected disabled>Select an option</option>
+                                <option value="Option1">Option 1</option>
+                                <option value="Option2">Option 2</option>
+                                <option value="Option3">Option 3</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="select5" class="form-label">Select 5</label>
+                            <select class="form-select" id="select5" name="select5">
+                                <option selected disabled>Select an option</option>
+                                <option value="Option1">Option 1</option>
+                                <option value="Option2">Option 2</option>
+                                <option value="Option3">Option 3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+    <footer class="new_footer_area bg_color fixed-bottom">
+        <div class="new_footer_top">
+            <div class="footer_bg">
+                <div class="footer_bg_one"></div>
+                <div class="footer_bg_two"></div>
+            </div>
+        </div>
+        
+    </footer>
+    <!-- Latest Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- Latest jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- jQuery Validation Plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    $(document).ready(function() {
+        // Initialize jQuery Validation
+        $("#dataForm").validate({
+            rules: {
+                input1: "required",
+                input2: "required",
+                input3: "required",
+                input4: "required",
+                input5: "required",
+                currentDate: "required",
+                select1: "required",
+                select2: "required",
+                select3: "required",
+                select4: "required",
+                select5: "required"
+            },
+            messages: {
+                input1: "Please enter Input 1",
+                input2: "Please enter Input 2",
+                input3: "Please enter Input 3",
+                input4: "Please enter Input 4",
+                input5: "Please enter Input 5",
+                currentDate: "Please select a date",
+                select1: "Please select an option",
+                select2: "Please select an option",
+                select3: "Please select an option",
+                select4: "Please select an option",
+                select5: "Please select an option"
+            },
+            submitHandler: function(form) {
+                const data = {
+                    EntreDate: document.getElementById('currentDate').value,
+                    input1: document.getElementById('input1').value,
+                    input2: document.getElementById('input2').value,
+                    input3: document.getElementById('input3').value,
+                    input4: document.getElementById('input4').value,
+                    input5: document.getElementById('input5').value,
+                    select1: document.getElementById('select1').value,
+                    select2: document.getElementById('select2').value,
+                    select3: document.getElementById('select3').value,
+                    select4: document.getElementById('select4').value,
+                    select5: document.getElementById('select5').value
+                };
+                showOverlay();
+                const url1 = 'https://script.google.com/macros/s/AKfycbyNjpjB4BnbE30jSg9vFYDKRvymJAGE27J6GT_Z6MuVukiY91cvkBR1x0r3ZHyU1OO8Yw/exec';
+                const url2 = 'https://script.google.com/macros/s/AKfycbwYQr7XvizoKbpgSp8AmfNgqEqDDPlAWnYpWivHbLdrmAMVUk0U1Amh1qnS2f-tWPEX/exec';
+
+            fetch(url1, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                return fetch(url2, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+            })
+            .then(() => {
+                hideOverlay();
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Enrollment completed successfully.',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    allowOutsideClick: false,
+                }).then(() => {
+                    // Reset the form fields after successful submission
+                    $(form).trigger('reset');
+                });
+            })
+                .catch(error => {
+                    hideOverlay();
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Error: ' + error.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK',
+                        allowOutsideClick: false,
+                    });
+                });
+            }
+        });
+        
+        function showOverlay() {
+            $('#overlay').css('display', 'block');
+        }
+
+        function hideOverlay() {
+            $('#overlay').css('display', 'none');
+        }
+    });
+    </script>
+</body>
+</html>

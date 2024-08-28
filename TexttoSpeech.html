@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech with Voice Selection</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<style>
+    #cycleImg{
+        width: 80px;
+        height: auto;
+    }
+    #cycleImg1{
+        width: 80px;
+        height: auto;
+    }
+</style>
+<body class="p-4">
+
+    <!-- Marquee at the Top -->
+    <marquee behavior="scroll" direction="right" class="mb-3" scrollamount="2">
+        <img id="cycleImg"src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/82614c38823695.5770ea557a3a8.gif" alt="">
+        <img id="cycleImg1"src="https://mir-s3-cdn-cf.behance.net/project_modules/hd/82614c38823695.5770ea557a3a8.gif" alt="">
+    </marquee>
+
+    <div class="container">
+        <h1 class="mb-4">Text to Speech with Voice Selection</h1>
+        <div class="mb-3">
+            <label for="textInput" class="form-label">Enter Text:</label>
+            <input type="text" id="textInput" class="form-control" placeholder="Type something...">
+        </div>
+        <div class="mb-3">
+            <label for="voiceSelect" class="form-label">Select Voice:</label>
+            <select id="voiceSelect" class="form-select"></select>
+        </div>
+        <button id="speakButton" class="btn btn-primary">Speak</button>
+    </div>
+
+    <script>
+        const synth = window.speechSynthesis;
+        const voiceSelect = document.getElementById('voiceSelect');
+
+        function populateVoices() {
+            const voices = synth.getVoices();
+            voiceSelect.innerHTML = '';
+            voices.forEach((voice, index) => {
+                const option = document.createElement('option');
+                option.value = index;
+                option.textContent = `${voice.name} (${voice.lang})`;
+                if (voice.default) {
+                    option.textContent += ' — DEFAULT';
+                }
+                voiceSelect.appendChild(option);
+            });
+        }
+
+        populateVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = populateVoices;
+        }
+
+        document.getElementById('speakButton').addEventListener('click', function() {
+            const text = document.getElementById('textInput').value;
+            const selectedVoiceIndex = voiceSelect.value;
+            const voices = synth.getVoices();
+            if (text) {
+                const speech = new SpeechSynthesisUtterance(text);
+                speech.voice = voices[selectedVoiceIndex];
+                window.speechSynthesis.speak(speech);
+            } else {
+                alert('Please enter some text to speak.');
+            }
+        });
+    </script>
+</body>
+</html>
