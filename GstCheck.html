@@ -5,18 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tax Calculator</title>
     <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Acme&family=Alata&family=Barlow:wght@400;700&family=Basic&family=Be+Vietnam:wght@400;700&family=Big+Shoulders+Display:wght@400;700&family=Calistoga&family=Chivo:wght@400;700&family=Chonburi&family=Crimson+Pro:wght@400;700&family=Cuprum:wght@400;700&family=Dancing+Script:wght@400;700&family=DM+Serif+Display&family=Ephesis&family=Exo:wght@400;700&family=Fira+Code:wght@400;700&family=Gloock:wght@400;700&family=Gloock:wght@400;700&family=Hammersmith+One&family=Hind+Siliguri:wght@400;700&family=Holtwood+One+SC&family=Julius+Sans+One&family=Kumbh+Sans:wght@400;700&family=Langar&family=Lato:wght@400;700&family=Lobster&family=Martel:wght@400;700&family=Monofett&family=Noto+Sans:wght@400;700&family=Oxygen:wght@400;700&family=Patrick+Hand&family=Proza+Libre:wght@400;700&family=Questrial&family=Quicksand:wght@400;700&family=Rasa:wght@400;700&family=Rock+Salt&family=Sail&family=Shadows+Into+Light&family=Shanti&family=Sigmar+One&family=Syncopate&family=Titillium+Web:wght@400;700&family=Ultra&family=Yesteryear&display=swap" rel="stylesheet">
+
     <!-- Custom CSS -->
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            background-image: url('https://www.indiafilings.com/learn/wp-content/uploads/2022/07/47th-GST-Council-Meeting.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            font-family: 'Alata', sans-serif;
+            background-color: #b0d2f5;
             height: 100vh;
-            margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,7 +23,7 @@
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            
+            max-width: 800px;
         }
         .title-image {
             text-align: center;
@@ -34,10 +31,13 @@
         }
         .title-image img {
             max-width: 100%;
-            height: auto;
+            height: 100px;
         }
         .form-group {
             margin-bottom: 20px;
+        }
+        .btn-block {
+            width: 100%;
         }
         .result {
             margin-top: 20px;
@@ -47,69 +47,64 @@
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+        .alert {
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-5">
         <div class="title-image">
-            <img src="https://via.placeholder.com/150" alt="Tax Calculator Image">
-            <h1 class="text-center mb-4">Tax Calculator</h1>
+            <img src="https://as1.ftcdn.net/v2/jpg/04/98/01/84/1000_F_498018432_SarAiaKEjPtG18Jv1eVNbmh4j0TM362w.jpg" alt="Tax Calculator Image">
+            <h1 class="text-center">Tax Calculator</h1>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h5>Total Amount:</h5>
-                        <input type="number" class="form-control" id="totalAmount" placeholder="Enter total amount">
-                    </div>
-                    <div class="col-md-6 mt-4 mt-md-0">
-                        <h5>Tax Percentage:</h5>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="taxPercentage" placeholder="Enter tax percentage">
-                            <div class="input-group-append">
-                                <span class="input-group-text">%</span>
-                            </div>
-                        </div>                       
-                    </div>
-                    
+            <!-- Tax Calculation -->
+            <div class="col-md-5" style="padding: 10px; box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;">
+                <h4 class="mb-3">Add Tax to Total Amount</h4>
+                <hr>
+                <div class="form-group">
+                    <label for="totalAmount">Total Amount:</label>
+                    <input type="number" class="form-control" id="totalAmount" placeholder="Enter total amount">
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-12">
-               
-                    <button type="button" class="btn btn-primary btn-block" onclick="calculateTax()">Calculate ADD GST Tax Value</button>
-                        
+                <div class="form-group">
+                    <label for="taxPercentage">Tax Percentage:</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="taxPercentage" placeholder="Enter tax percentage">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary btn-block" onclick="calculateTax()">Calculate Tax</button>
+            </div>
+            <div class="col-md-2"></div>
+            <!-- GST Calculation -->
+            <div class="col-md-5" style="padding: 10px; box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;">
+                <h4 class="mb-3">Calculate Value Before GST</h4>
+                <hr>
+                <div class="form-group">
+                    <label for="totalAmountWithGST">Total Amount (including GST):</label>
+                    <input type="number" class="form-control" id="totalAmountWithGST" placeholder="Enter total amount with GST">
+                </div>
+                <div class="form-group">
+                    <label for="gstPercentage">GST Percentage:</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="gstPercentage" placeholder="Enter GST percentage">
+                        <span class="input-group-text">%</span>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary btn-block" onclick="calculateValueBeforeGST()">Calculate Before GST</button>
             </div>
         </div>
-            </div>
-            <div class="col-md-6">
-                
-                <form id="gstForm">
-                    <div class="form-group">
-                        <label for="totalAmountWithGST">Total Amount (including GST):</label>
-                        <input type="number" class="form-control" id="totalAmountWithGST" placeholder="Enter total amount with GST">
-                    </div>
-                    <div class="form-group">
-                        <label for="gstPercentage">GST Percentage:</label>
-                        <div class="input-group">
-                            <input type="number" class="form-control" id="gstPercentage" placeholder="Enter GST percentage">
-                            <div class="input-group-append">
-                                <span class="input-group-text">%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-primary btn-block" onclick="calculateValueBeforeGST()">Calculate Value Before GST</button>
-                </form>
-            </div>
-        </div>
-        <div id="result" class="result mt-4">
+        
+        <!-- Result Section -->
+        <div id="result" class="result">
             <!-- Result will be displayed here -->
         </div>
     </div>
 
     <!-- Bootstrap JS and dependencies -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JavaScript -->
     <script>
         function calculateTax() {
@@ -136,10 +131,10 @@
             taxResultDiv.className = 'alert alert-success';
             taxResultDiv.role = 'alert';
             taxResultDiv.innerHTML = `
-                <p>Total Amount: $${totalAmount.toFixed(2)}</p>
-                <p>Tax (${taxPercentage}%): $${taxAmount.toFixed(2)}</p>
+                <p><strong>Total Amount:</strong> $${totalAmount.toFixed(2)}</p>
+                <p><strong>Tax (${taxPercentage}%):</strong> $${taxAmount.toFixed(2)}</p>
                 <hr>
-                <p>Total Amount with Tax: $${totalAmountWithTax.toFixed(2)}</p>
+                <p><strong>Total Amount with Tax:</strong> $${totalAmountWithTax.toFixed(2)}</p>
             `;
             
             document.getElementById('result').innerHTML = ''; // Clear previous result
@@ -170,9 +165,9 @@
             gstResultDiv.className = 'alert alert-success';
             gstResultDiv.role = 'alert';
             gstResultDiv.innerHTML = `
-                <p>Total Amount (including GST): $${totalAmountWithGST.toFixed(2)}</p>
-                <p>Value Before GST: $${valueBeforeGST.toFixed(2)}</p>
-                <p>GST (${gstPercentage}%): $${gstAmount.toFixed(2)}</p>
+                <p><strong>Total Amount (including GST):</strong> $${totalAmountWithGST.toFixed(2)}</p>
+                <p><strong>Value Before GST:</strong> $${valueBeforeGST.toFixed(2)}</p>
+                <p><strong>GST (${gstPercentage}%):</strong> $${gstAmount.toFixed(2)}</p>
             `;
             
             document.getElementById('result').innerHTML = ''; // Clear previous result
