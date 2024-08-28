@@ -1,413 +1,212 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transport Login</title>
-    <!-- Latest Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <!-- SweetAlert CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Audiowide&display=swap" rel="stylesheet">
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.vectorstock.com/i/1000v/76/89/truck-logo-vector-45757689.jpg">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.vectorstock.com/i/1000v/76/89/truck-logo-vector-45757689.jpg">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.vectorstock.com/i/1000v/76/89/truck-logo-vector-45757689.jpg">
-    <link rel="icon" type="image/x-icon" href="https://cdn.vectorstock.com/i/1000v/76/89/truck-logo-vector-45757689.jpg">
-    <meta name="theme-color" content="#ffffff"> <!-- For Chrome and Android -->
-    
-<style>
-    @import url(https://fonts.googleapis.com/css?family=Audiowide);
-/* 
-::-moz-selection {
-    background: #cc0000;
-    text-shadow: none;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+  <title>Login Page</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+      background-color: #000000;
+      font-family: math;
+    }
 
-::selection {
-    background: #cc0000;
-    text-shadow: none;
-} */
+    .shapes-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      animation: moveShapes 20s linear infinite;
+    }
 
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video {
-  border: 0;
-  font: inherit;
-  font-size: 100%;
-  margin: 0;
-  padding: 0;
-  vertical-align: baseline;
-  text-rendering: optimizeLegibility;
-}
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+    }
 
-article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
-  display: block;
-}
+    .triangle {
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 87px solid #ff0000;
+      animation: rotateTriangle 10s linear infinite;
+    }
 
-html,body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+    .circle {
+      width: 100px;
+      height: 100px;
+      background-color: #ddf033;
+      animation: rotateCircle 15s linear infinite;
+    }
 
-body {
-  background: #1b1b1b;
-  color: #FFF;
- 
-  font-family: 'Audiowide', sans-serif;
-  font-size: 12px;
-  line-height: 1;
-}
+    .rectangle {
+      width: 120px;
+      height: 60px;
+      background-color: #2eac07;
+      animation: rotateRectangle 12s linear infinite;
+    }
 
-.background-wrap {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  overflow: hidden;
-}
+    @keyframes moveShapes {
+      0% {
+        transform: translateY(0);
+      }
 
-.background {
-  background: url('http://world5.commonsupport.com/html/transpo/images/main-slider/1.jpg');
-  background-position: center;
-  background-size: cover;
-  filter: blur(10px);
-  height: 105%;
-  position: relative;
-  width: 105%;
-  right: -2.5%;
-  left: -2.5%;
-  top: -2.5%;
-  bottom: -2.5%;
-}
+      50% {
+        transform: translateY(-50%);
+      }
 
-* {
-  box-sizing: border-box;
-  cursor: default;
-  outline: none;
-}
+      100% {
+        transform: translateY(0);
+      }
+    }
 
-form {
-  background: #ffffff;
-  border: 1px solid #ffffff;
-  border-radius: .4em;
-  bottom: 0;
-  box-shadow: 0 5px 10px 5px rgba(0,0,0,0.2);
-  height: 20rem;
-  left: 0;
-  margin: auto;
-  overflow: hidden;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 30rem;
-}
+    @keyframes rotateTriangle {
+      0% {
+        transform: rotate(0deg);
+      }
 
-form:after {
-  background: linear-gradient(to right, #111111, #444444, #b6b6b8, #444444, #2F2F2F, #272727);
-  content: "";
-  display: block;
-  height: 1px;
-  left: 50px;
-  position: absolute;
-  top: 0;
-  width: 150px;
-}
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 
-form:before {
-  border-radius: 50%;
-  box-shadow: 0 0 6px 4px #fff;
-  content: "";
-  display: block;
-  height: 5px;
-  left: 34%;
-  position: absolute;
-  top: -7px;
-  width: 8px;
-}
+    @keyframes rotateCircle {
+      0% {
+        transform: rotate(0deg);
+      }
 
-.inset {
-  border-top: 1px solid #19191a;
-  padding: 20px;
-}
+      100% {
+        transform: rotate(-360deg);
+      }
+    }
 
-form h1 {
-  font-family: 'Audiowide', sans-serif;
-  border-bottom: 1px solid #000;
-  background: black;
-  font-size: 18px;
-  padding: 15px 0;
-  position: relative;
-  text-align: center;
-  text-shadow: 0 1px 0 #000;
-}
+    @keyframes rotateRectangle {
+      0% {
+        transform: rotate(0deg);
+      }
 
-form h1 {
-  color: #ffcc00;
-  font-family: 'Audiowide', sans-serif;
-  font-weight: normal;
-}
+      100% {
+        transform: rotate(360deg);
+      }
+    }
 
-form h1.poweron {
-  color: #ffffff;
-  transition: all 0.5s;
-  animation: flicker 1s ease-in-out 1 alternate, neon 1.5s ease-in-out infinite alternate;
-  animation-delay: 0s, 1s;
-}
+    .login-container {
+      max-width: 400px;
+      margin: auto;
+      margin-top: 100px;
+      animation: fadeInUp 1s forwards;
+    }
 
-form h1:after {
-  position: absolute;
-  width: 250px;
-  height: 180px;
-  content: "";
-  display: block;
-  pointer-events: none;
-  top: 0;
-  margin-left: 138px;
-  transform-style: flat;
-  transform: skew(20deg);
+    .card {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border: none;
+    }
 
-  background: -moz-linear-gradient(top, hsla(0,0%,100%,0.1) 0%, hsla(0,0%,100%,0) 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,hsla(0,0%,100%,0.2)), color-stop(100%,hsla(0,0%,100%,0)));
-  background: -webkit-linear-gradient(top, hsla(0,0%,100%,0.1) 0%,hsla(0,0%,100%,0) 100%);
-  background: -o-linear-gradient(top, hsla(0,0%,100%,0.1) 0%,hsla(0,0%,100%,0) 100%);
-  background: -ms-linear-gradient(top, hsla(0,0%,100%,0.1) 0%,hsla(0,0%,100%,0) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#42ffffff', endColorstr='#00ffffff',GradientType=0 );
-  background: linear-gradient(to bottom, hsla(0,0%,100%,0.1) 0%,hsla(0,0%,100%,0) 100%);
+    .card-header {
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem;
+    }
 
-}
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
 
-input[type=text], input[type=password] {
-  font-family: 'Audiowide';
-    background: linear-gradient(#ffffff, #ffffff);
-    border: 1px solid #e3e4e9;
-    border-bottom: 2px solid blue;
-    border-radius: .3em;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
-    color: #000000;
-    font-size: 13px;
-    margin-bottom: 20px;
-    padding: 8px 5px;
-    width: 100%;
-}
-/* Change border color to green on focus */
-input[type=text]:focus, input[type=password]:focus {
-  font-family: 'Audiowide';
-  background: linear-gradient(#ffffff, #ffffff);
-    border: 1px solid #e3e4e9;
-    border-bottom: 2px solid rgb(34 172 10);
-    border-radius: .3em;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
-    color: #000000;
-    font-size: 13px;
-    margin-bottom: 20px;
-    padding: 8px 5px;
-    width: 100%;
-}
-* {
-    box-sizing: border-box;
-    cursor: default;
-    outline: none;
-}
+    .btn-primary {
+      background-color: #007bff;
+      border: 1px solid #007bff;
+    }
 
-input[type=text]:disabled, input[type=password]:disabled {
-	color: #999;
-}
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border: 1px solid #0056b3;
+    }
 
-label[for=remember] {
-  color: #bbb;
-  display: inline-block;
-  height: 20px;
-  line-height: 20px;
-  vertical-align: top;
-  padding: 0 0 0 5px;
-}
-
-.p-container {
-  padding: 0 20px 20px;
-}
-
-.p-container:after {
-  clear: both;
-  content: "";
-  display: table;
-}
-
-.p-container span {
-  color: #0d93ff;
-  display: block;
-  float: left;
-  padding-top: 8px;
-}
-
-input[type=submit] {
-  font-family: 'Audiowide', sans-serif;
-  background: #ffcc00;
-  border: 1px solid #ffcc00;
-  border-radius: .3em;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), inset 0 10px 10px rgba(255,255,255,0.1);
-  color: #040200;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: bold;
-  height: 40px;
-  padding: 5px 20px;
-  width: 100%;
-}
-.divLoader {
-            position: fixed;
-            left: initial;
-            top: 0%;
-            width: 100%;
-            height: 100%;
-            z-index: 9999;
-            background: #3a3737c9;
-            opacity: 1;
-        }
- .loader {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  border: 3px solid;
-  border-color: #FFF #FFF transparent transparent;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-.loader::after,
-.loader::before {
-  content: '';  
-  box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  border: 3px solid;
-  border-color: transparent transparent #ed1115 #ed1115;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  box-sizing: border-box;
-  animation: rotationBack 0.5s linear infinite;
-  transform-origin: center center;
-}
-.loader::before {
-  width: 32px;
-  height: 32px;
-  border-color: #FFF #FFF transparent transparent;
-  animation: rotation 1.5s linear infinite;
-}
-    
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-} 
-@keyframes rotationBack {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(-360deg);
-  }
-}
-</style>
+    .error-message {
+      color: #dc3545;
+      margin-top: 0.25rem;
+    }
+  </style>
 </head>
+
 <body>
 
-    
-<div class="block-page" id="overlay"
-style="display: none; background: rgba(255, 255, 255, 0.93) !important; text-align: center;">
-<div class="divLoader">
-    <div class="" style="margin-top: 20rem;">
-        <span class="loader"></span>
+  <div class="shapes-container">
+    <div class="shape triangle" style="top: 20%; left: 10%;"></div>
+    <div class="shape circle" style="top: 50%; left: 70%;"></div>
+    <div class="shape rectangle" style="top: 80%; left: 30%;"></div>
+  </div>
+
+  <div class="container login-container animate__animated animate__fadeInUp">
+    <div class="card">
+      <div class="card-header">
+        <h2>Login<i class="fa-brands fa-wordpress"></i></h2>
+      </div>
+      <div class="card-body">
+        <form id="loginForm" onsubmit="return validateLogin()">
+          <div class="form-group">
+            <label for="username"><i class="fa-solid fa-user-tie"></i> Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required value="Ajith">
+            <div class="error-message" id="usernameError"></div>
+          </div>
+          <div class="form-group">
+            <label for="password"><i class="fa-solid fa-key"></i>  Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required value="Welcome@123">
+            <div class="error-message" id="passwordError"></div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Login <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+        </form>
+      </div>
     </div>
-    <p
-        style="font-size: 15px; font-weight: bold; color: white; margin-bottom: 0px;">Processing
-        Please Wait...</p>
-</div>
-</div>
-    <div class="background-wrap">
-        <div class="background"></div>
-    </div>
+  </div>
 
-    <form id="accesspanel" action="javascript:void(0);">
-        <h1>TRANSPORT</h1>
-        <div class="inset">
-            <p>
-                <input type="text" name="username" id="username" placeholder="Enter username">
-            </p>
-            <p>
-                <input type="password" name="password" id="password" placeholder="Password">
-            </p>
-        </div>
-        <p class="p-container">
-            <input type="submit" name="Login" id="go" value="LogIn">
-        </p>
-    </form>
+  <script>
+    function validateLogin() {
+      var username = $("#username").val();
+      var password = $("#password").val();
+      var usernameError = $("#usernameError");
+      var passwordError = $("#passwordError");
 
-    <!-- Latest jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Latest Bootstrap Bundle with Popper -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <!-- SweetAlert JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        $(document).ready(function() {
-            $('#accesspanel').on('submit', function(e) {
-                e.preventDefault();
+      // Reset error messages
+      usernameError.html("");
+      passwordError.html("");
 
-                const username = $('#username').val();
-                const password = $('#password').val();
+      // Add your authentication logic here
+      if (username !== "Ajith" || password !== "Welcome@123") {
+        // Display error messages
+        if (username !== "Ajith") {
+          usernameError.html("Invalid username");
+        }
+        if (password !== "Welcome@123") {
+          passwordError.html("Invalid password");
+        }
+        return false; // Prevent form submission
+      }
 
-                if (username === 'test' && password === 'test') {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'Login successful!',
-                        allowOutsideClick: false,
-                        willClose: () => {
-                            showOverlay();
-                            window.location.href = 'Entrolment.html';
-                        }
-                    });
-                } else {
-                    let errorMsg = 'Invalid ';
-                    if (username !== 'test') {
-                        errorMsg += 'username';
-                        $('#username').val('');
-                    }
-                    if (password !== 'test') {
-                        errorMsg += username !== 'test' ? ' and password' : 'password';
-                        $('#password').val('');
-                    }
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: errorMsg,
-                        allowOutsideClick: false,
-                    });
-                }
-            });
-        });
+      // Successful login, redirect to welcome.html
+      window.location.href = "Welcome.html";
 
-         //showOverlay and hideOverlay functions written
-         function showOverlay() {
-                $('#overlay').css('display', 'block');
-            }
+      // Return false to prevent form submission (comment this line if you want to submit the form)
+      return false;
+    }
+  </script>
 
-            function hideOverlay() {
-                $('#overlay').css('display', 'none');
-
-            }
-    </script>
 </body>
+
 </html>
