@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Readonly</title>
+    <style>
+        .disabled-button {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="myInput" value="Ajith AX">
+    <button id="toggleReadonlyBtn">Toggle Readonly</button>
+
+    <script>
+        const input = document.getElementById('myInput');
+        const button = document.getElementById('toggleReadonlyBtn');
+
+        button.addEventListener('click', () => {
+            if (input.hasAttribute('readonly')) {
+                input.removeAttribute('readonly');
+            } else {
+                input.setAttribute('readonly', 'readonly');
+            }
+        });
+
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'readonly' && !input.hasAttribute('readonly')) {
+                    input.setAttribute('readonly', 'readonly');
+                }
+            });
+        });
+
+        observer.observe(input, {
+            attributes: true,
+        });
+    </script>
+</body>
+</html>

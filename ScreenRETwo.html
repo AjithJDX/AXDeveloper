@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Recorder with Audio</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        #screenVideo {
+            width: 100%;
+            max-width: 640px;
+            margin: 20px auto;
+            display: block;
+        }
+        .btn-group {
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        .btn-group button {
+            margin: 5px;
+        }
+        footer {
+            padding: 10px;
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        header {
+            padding: 10px;
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        .overlay .controls {
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Screen Recorder with Audio</h1>
+    </header>
+    
+    <div class="container text-center">
+        <video id="screenVideo" controls></video>
+        <div class="btn-group mt-3" role="group">
+            <button id="getPermissionButton" class="btn btn-info">
+                <i class="fas fa-desktop"></i> Get Screen Access
+            </button>
+            <button id="startButton" class="btn btn-primary" disabled>
+                <i class="fas fa-play"></i> Start Recording
+            </button>
+            <button id="pauseButton" class="btn btn-warning" disabled>
+                <i class="fas fa-pause"></i> Pause Recording
+            </button>
+            <button id="resumeButton" class="btn btn-success" disabled>
+                <i class="fas fa-play"></i> Resume Recording
+            </button>
+            <button id="stopButton" class="btn btn-danger" disabled>
+                <i class="fas fa-stop"></i> Stop Recording
+            </button>
+            <button id="muteButton" class="btn btn-secondary" disabled>
+                <i class="fas fa-volume-mute"></i> Mute
+            </button>
+            <button id="unmuteButton" class="btn btn-secondary" disabled>
+                <i class="fas fa-volume-up"></i> Unmute
+            </button>
+            <button id="saveButton" class="btn btn-success" disabled>
+                <i class="fas fa-save"></i> Save Video
+            </button>
+        </div>
+    </div>
+
+    <div class="overlay" style="display: none;">
+        <div class="controls">
+            <button id="startOverlayButton" class="btn btn-primary">
+                <i class="fas fa-play"></i> Start Recording
+            </button>
+            <button id="pauseOverlayButton" class="btn btn-warning" style="display: none;">
+                <i class="fas fa-pause"></i> Pause Recording
+            </button>
+            <button id="resumeOverlayButton" class="btn btn-success" style="display: none;">
+                <i class="fas fa-play"></i> Resume Recording
+            </button>
+            <button id="stopOverlayButton" class="btn btn-danger" style="display: none;">
+                <i class="fas fa-stop"></i> Stop Recording
+            </button>
+            <button id="muteOverlayButton" class="btn btn-secondary">
+                <i class="fas fa-volume-mute"></i> Mute
+            </button>
+            <button id="unmuteOverlayButton" class="btn btn-secondary" style="display: none;">
+                <i class="fas fa-volume-up"></i> Unmute
+            </button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Screen Recorder Application</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        let mediaRecorder;
+        let recordedChunks = [];
+        let screenStream;
+        let audioStream;
+        let isMuted = false;
+
+        async function getScreenAccess() {
+            try {
+                screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const combinedStream = new MediaStream([...screenStream.getTracks(), ...audioStream.getTracks()]);
+                document.getElementById('screenVideo').srcObject = combinedStream;
+
+                document.getElementById('startButton').disabled = false;
+                document.getElementById('startOverlayButton').disabled = false;
+                document.getElementById('muteButton').disabled = false;
+                document.getElementById('muteOverlayButton').disabled = false;
+                document.getElementById('unmuteButton').disabled = true;
+                document.getElementById('unmuteOverlayButton').disabled = true;
+            } catch (error) {
+                console.error('Error accessing media.', error);
+            }
+        }
+
+        document.getElementById('getPermissionButton').addEventListener('click', async () => {
+            await getScreenAccess();
+            document.getElementById('getPermissionButton').disabled = true;
+        });
+
+        function startRecording() {
+            mediaRecorder = new MediaRecorder(document.getElementById('screenVideo').srcObject, { mimeType: 'video/webm; codecs=vp9' });
+
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                document.getElementById('screenVideo').srcObject = null;
+                document.getElementById('screenVideo').src = url;
+                recordedChunks = [];
+
+                // Enable save button
+                document.getElementById('saveButton').disabled = false;
+            };
+
+            mediaRecorder.start();
+
+            document.getElementById('startButton').disabled = true;
+            document.getElementById('startOverlayButton').style.display = 'none';
+            document.getElementById('pauseButton').disabled = false;
+            document.getElementById('pauseOverlayButton').style.display = 'inline-block';
+            document.getElementById('stopButton').disabled = false;
+            document.getElementById('stopOverlayButton').style.display = 'inline-block';
+        }
+
+        document.getElementById('startButton').addEventListener('click', startRecording);
+        document.getElementById('startOverlayButton').addEventListener('click', startRecording);
+
+        function pauseRecording() {
+            if (mediaRecorder && mediaRecorder.state === 'recording') {
+                mediaRecorder.pause();
+                document.getElementById('pauseButton').disabled = true;
+                document.getElementById('pauseOverlayButton').style.display = 'none';
+                document.getElementById('resumeButton').disabled = false;
+                document.getElementById('resumeOverlayButton').style.display = 'inline-block';
+            }
+        }
+
+        document.getElementById('pauseButton').addEventListener('click', pauseRecording);
+        document.getElementById('pauseOverlayButton').addEventListener('click', pauseRecording);
+
+        function resumeRecording() {
+            if (mediaRecorder && mediaRecorder.state === 'paused') {
+                mediaRecorder.resume();
+                document.getElementById('pauseButton').disabled = false;
+                document.getElementById('pauseOverlayButton').style.display = 'inline-block';
+                document.getElementById('resumeButton').disabled = true;
+                document.getElementById('resumeOverlayButton').style.display = 'none';
+            }
+        }
+
+        document.getElementById('resumeButton').addEventListener('click', resumeRecording);
+        document.getElementById('resumeOverlayButton').addEventListener('click', resumeRecording);
+
+        function stopRecording() {
+            if (mediaRecorder) {
+                mediaRecorder.stop();
+                document.getElementById('startButton').disabled = false;
+                document.getElementById('startOverlayButton').style.display = 'inline-block';
+                document.getElementById('pauseButton').disabled = true;
+                document.getElementById('pauseOverlayButton').style.display = 'none';
+                document.getElementById('resumeButton').disabled = true;
+                document.getElementById('resumeOverlayButton').style.display = 'none';
+                document.getElementById('stopButton').disabled = true;
+                document.getElementById('stopOverlayButton').style.display = 'none';
+                document.getElementById('getPermissionButton').disabled = false;
+            }
+        }
+
+        document.getElementById('stopButton').addEventListener('click', stopRecording);
+        document.getElementById('stopOverlayButton').addEventListener('click', stopRecording);
+
+        function muteAudio() {
+            if (audioStream) {
+                audioStream.getTracks().forEach(track => track.enabled = false);
+                isMuted = true;
+                document.getElementById('muteButton').disabled = true;
+                document.getElementById('muteOverlayButton').style.display = 'none';
+                document.getElementById('unmuteButton').disabled = false;
+                document.getElementById('unmuteOverlayButton').style.display = 'inline-block';
+            }
+        }
+
+        document.getElementById('muteButton').addEventListener('click', muteAudio);
+        document.getElementById('muteOverlayButton').addEventListener('click', muteAudio);
+
+        function unmuteAudio() {
+            if (audioStream) {
+                audioStream.getTracks().forEach(track => track.enabled = true);
+                isMuted = false;
+                document.getElementById('muteButton').disabled = false;
+                document.getElementById('muteOverlayButton').style.display = 'inline-block';
+                document.getElementById('unmuteButton').disabled = true;
+                document.getElementById('unmuteOverlayButton').style.display = 'none';
+            }
+        }
+
+        document.getElementById('unmuteButton').addEventListener('click', unmuteAudio);
+        document.getElementById('unmuteOverlayButton').addEventListener('click', unmuteAudio);
+
+        document.getElementById('saveButton').addEventListener('click', () => {
+            const blob = new Blob(recordedChunks, { type: 'video/webm' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'recorded_video.webm';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+    </script>
+</body>
+</html>
