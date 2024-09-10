@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload and Play Video</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <h2>Select a video file to play:</h2>
+    <input type="file" id="videoInput" accept="video/*">
+    <button id="playBtn">Play Video</button>
+
+    <video id="videoPlayer" width="640" height="360" controls>
+        <source id="videoSource" src="" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        $(document).ready(function() {
+            $('#playBtn').on('click', function() {
+                var file = $('#videoInput')[0].files[0];
+                if (file) {
+                    // Create a URL for the video file and set it as the source of the video player
+                    var videoURL = URL.createObjectURL(file);
+                    $('#videoSource').attr('src', videoURL);
+                    $('#videoPlayer')[0].load(); // Reload the video player with the new source
+                    $('#videoPlayer')[0].play(); // Play the video
+                } else {
+                    alert("Please select a video file first.");
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
