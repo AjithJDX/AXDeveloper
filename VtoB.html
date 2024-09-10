@@ -3,30 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload and Play Video</title>
+    <title>Upload, Play, and Convert Video to Base64</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #progressBar {
+            width: 100%;
+            background-color: #f3f3f3;
+        }
+
+        #progressBar div {
+            width: 0%;
+            height: 30px;
+            background-color: #4caf50;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+    </style>
 </head>
 <body>
 
-    <h2>Select a video file to play:</h2>
+    <h2>Select a video file to play and convert to Base64:</h2>
     <input type="file" id="videoInput" accept="video/*">
-    <button id="playBtn">Play Video</button>
+    <button id="playBtn">Play Video & Convert</button>
 
     <video id="videoPlayer" width="640" height="360" controls>
         <source id="videoSource" src="" type="video/mp4">
         Your browser does not support the video tag.
     </video>
 
+    <div id="progressBar">
+        <div id="progressStatus">0%</div>
+    </div>
+
+    <textarea id="base64Output" rows="10" cols="50" placeholder="Base64 output will appear here"></textarea>
+
     <script>
         $(document).ready(function() {
             $('#playBtn').on('click', function() {
                 var file = $('#videoInput')[0].files[0];
                 if (file) {
-                    // Create a URL for the video file and set it as the source of the video player
+                    // Play the video
                     var videoURL = URL.createObjectURL(file);
                     $('#videoSource').attr('src', videoURL);
-                    $('#videoPlayer')[0].load(); // Reload the video player with the new source
-                    $('#videoPlayer')[0].play(); // Play the video
+                    $('#videoPlayer')[0].load();
+                    $('#videoPlayer')[0].play();
+
+                    // Convert the video to Base64
+                    var reader = new FileReader();
+
+                    reader.onprogress = function(event) {
+                        if (event.lengthComputable) {
+                            var percentLoaded = Math.round((event.loaded / event.total) * 100);
+                            $('#progressStatus').css('width', percentLoaded + '%').text(percentLoaded + '%');
+                        }
+                    };
+
+                    reader.onload = function(event) {
+                        // This is the Base64 string result
+                        var base64String = event.target.result;
+                        $('#base64Output').val(base64String);
+                    };
+
+                    reader.onerror = function(error) {
+                        alert("Error reading file: " + error);
+                    };
+
+                    // Start reading the file as a Base64 string
+                    reader.readAsDataURL(file);
                 } else {
                     alert("Please select a video file first.");
                 }
