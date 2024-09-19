@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Eruda DevTools</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Toggle Eruda DevTools Example</h1>
+        <button id="DevTools" class="btn btn-primary">Open DevTools</button>
+    </div>
+
+    <script>
+        // Flag to track if Eruda is initialized
+        let isErudaInitialized = false;
+
+        // Track the visibility state of Eruda
+        let isErudaVisible = false;
+
+        // Function to initialize Eruda
+        function initializeEruda() {
+            if (!isErudaInitialized) {
+                var script = document.createElement('script');
+                script.src = "//cdn.jsdelivr.net/npm/eruda"; 
+                document.body.appendChild(script);
+                script.onload = function () { 
+                    eruda.init();
+                    isErudaInitialized = true;
+                    if (isErudaVisible) {
+                        eruda.show(); // Ensure it's visible if already in the 'visible' state
+                    }
+                };
+            }
+        }
+
+        // Function to access and modify elements in the Eruda shadow DOM
+        function modifyShadowDOM() {
+            const shadowHost = document.querySelector('#eruda');
+            if (shadowHost && shadowHost.shadowRoot) {
+                const shadowRoot = shadowHost.shadowRoot;
+                const shadowElement = shadowRoot.querySelector('.eruda-entry-btn'); // Adjust selector as needed
+                if (shadowElement) {
+                    shadowElement.style.display = 'none'; // Example of changing style
+                }
+            }
+        }
+
+        // Toggle Eruda DevTools
+        document.getElementById('toggle-eruda-btn').addEventListener('click', function() {
+            initializeEruda();
+
+            if (isErudaInitialized) {
+                if (isErudaVisible) {
+                    eruda.hide(); // Hide Eruda DevTools
+                    this.textContent = 'Open DevTools'; // Update button text
+                } else {
+                    eruda.show(); // Show Eruda DevTools
+                    this.textContent = 'Close DevTools'; // Update button text
+                    modifyShadowDOM(); // Modify shadow DOM elements
+                }
+                isErudaVisible = !isErudaVisible; // Toggle visibility state
+            }
+        });
+    </script>
+</body>
+</html>
