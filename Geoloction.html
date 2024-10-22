@@ -9,10 +9,15 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Acme&family=Alata&family=Barlow:wght@400;700&family=Basic&family=Be+Vietnam:wght@400;700&family=Big+Shoulders+Display:wght@400;700&family=Calistoga&family=Chivo:wght@400;700&family=Chonburi&family=Crimson+Pro:wght@400;700&family=Cuprum:wght@400;700&family=Dancing+Script:wght@400;700&family=DM+Serif+Display&family=Ephesis&family=Exo:wght@400;700&family=Fira+Code:wght@400;700&family=Gloock:wght@400;700&family=Gloock:wght@400;700&family=Hammersmith+One&family=Hind+Siliguri:wght@400;700&family=Holtwood+One+SC&family=Julius+Sans+One&family=Kumbh+Sans:wght@400;700&family=Langar&family=Lato:wght@400;700&family=Lobster&family=Martel:wght@400;700&family=Monofett&family=Noto+Sans:wght@400;700&family=Oxygen:wght@400;700&family=Patrick+Hand&family=Proza+Libre:wght@400;700&family=Questrial&family=Quicksand:wght@400;700&family=Rasa:wght@400;700&family=Rock+Salt&family=Sail&family=Shadows+Into+Light&family=Shanti&family=Sigmar+One&family=Syncopate&family=Titillium+Web:wght@400;700&family=Ultra&family=Yesteryear&display=swap"
+      rel="stylesheet"
+    />
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Acme", sans-serif;
         margin: 20px;
       }
       .container {
@@ -38,6 +43,9 @@
       }
       .error {
         color: red;
+      }
+      .lable-color {
+        color: rgb(16, 16, 243);
       }
     </style>
   </head>
@@ -115,31 +123,31 @@
 
           // Add only non-empty values
           if (data.display_name) {
-            addressOutput += `Display Name: ${data.display_name}<br>`;
+            addressOutput += `<span class="lable-color">Display Name:</span> ${data.display_name}<br><br>`;
           }
           if (data.address && data.address.residential) {
-            addressOutput += `Apartment: ${data.address.residential}<br>`;
+            addressOutput += `<span class="lable-color">Apartment:</span> ${data.address.residential}<br>`;
           }
           if (data.address && data.address.suburb) {
-            addressOutput += `Locality: ${data.address.suburb}<br>`;
+            addressOutput += `<span class="lable-color">Locality:</span> ${data.address.suburb}<br>`;
           }
           if (data.address && data.address.county) {
-            addressOutput += `Taluku: ${data.address.county}<br>`;
+            addressOutput += `<span class="lable-color">Taluku:</span> ${data.address.county}<br>`;
           }
           if (data.address && data.address.state_district) {
-            addressOutput += `District: ${data.address.state_district}<br>`;
+            addressOutput += `<span class="lable-color">District:</span> ${data.address.state_district}<br>`;
           }
           if (data.address && data.address.postcode) {
-            addressOutput += `Postal Code: ${data.address.postcode}<br>`;
+            addressOutput += `<span class="lable-color">Postal Code:</span> ${data.address.postcode}<br>`;
           }
           if (data.address && data.address.state) {
-            addressOutput += `State: ${data.address.state}<br>`;
+            addressOutput += `<span class="lable-color">State:</span> ${data.address.state}<br>`;
           }
           if (data.address && data.address.country) {
-            addressOutput += `Country: ${data.address.country}<br>`;
+            addressOutput += `<span class="lable-color">Country:</span> ${data.address.country}<br>`;
           }
           if (data.address && data.address.country_code) {
-            addressOutput += `Country-Code: ${data.address.country_code}<br>`;
+            addressOutput += `<span class="lable-color">Country-Code:</span> ${data.address.country_code}<br>`;
           }
 
           // Only display the output if there are any values
