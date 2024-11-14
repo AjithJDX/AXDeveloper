@@ -3,91 +3,269 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Files Dashboard</title>
+    <title>Modern Dashboard</title>
+    
+    <!-- Bootstrap 5.3.0 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+    <!-- Animate.css for smooth animations -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
         body {
-            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            background: #f7f7f7;
+            color: #333;
+            padding-top: 50px;
         }
-        .container {
-            max-width: 1000px;
-        }
+
         .card {
-            margin: 10px 0;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease-in-out;
         }
-        .list-group-item {
+
+      .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2), -8px -8px 20px rgba(255, 255, 255, 0.7);
+        }
+
+        .card-body {
+            padding: 30px;
+            background: linear-gradient(135deg, #1D5A8C, #4B9FC3);
+            color: #fff;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .card-text {
             font-size: 1.1rem;
+            color: #f1f1f1;
+            margin-bottom: 20px;
         }
+
+        .list-group-item {
+            background-color: #ffffff;
+            font-size: 1.1rem;
+            padding: 18px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            border: 1px solid #ddd;
+        }
+
         .list-group-item:hover {
-            background-color: #f0f0f5;
+            background-color: #f0f0f0;
+            transform: scale(1.05);
         }
+
+        .list-group-item a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .list-group-item a:hover {
+            color: #0056b3;
+        }
+
         h1 {
-            font-size: 2rem;
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            color: #1D5A8C;
+            margin-bottom: 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .card-body {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .row {
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .col-md-4 {
+                margin-bottom: 30px;
+            }
+        }
+
+        /* Button Styling */
+        .btn-custom {
+            background: #1D5A8C;
+            border-radius: 30px;
+            color: #fff;
+            padding: 10px 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            transition: background 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background: #4B9FC3;
+            color: #fff;
         }
     </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">HTML Files Dashboard</h1>
+    <div class="container">
+        <h1 class="animate__animated animate__fadeInUp">Modern Dashboard</h1>
+
         <div class="row">
             <!-- Column 1 -->
-            <div class="col-md-4">
-                <div class="card shadow-sm">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card animate__animated animate__fadeInUp">
                     <div class="card-body">
                         <h5 class="card-title">A-F Files</h5>
-                        <ul class="list-group">
-                            <a href="https://ajithjdx.github.io/AXDeveloper/Geoloction.html" class="list-group-item list-group-item-action">Geoloction</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/Base64%20Image%20to%20PDF%20Converter.html" class="list-group-item list-group-item-action">Base64 Image to PDF Converter</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/Datatable.html" class="list-group-item list-group-item-action">Datatable</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/DriverDatatable.html" class="list-group-item list-group-item-action">DriverDatatable</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/DriverEnrolment.html" class="list-group-item list-group-item-action">DriverEnrolment</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/Enrolment.html" class="list-group-item list-group-item-action">Enrolment</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/FinalDatatable.html" class="list-group-item list-group-item-action">FinalDatatable</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/FinalEntol.html" class="list-group-item list-group-item-action">FinalEntrol</a>
+                        <p class="card-text">Explore various files </p>
+                       <ul class="list-group">
+                            <li class="list-group-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/Geoloction.html">Geolocation</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-image"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/Base64%20Image%20to%20PDF%20Converter.html">Base64 Image to PDF Converter</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-table"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/Datatable.html">Datatable</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-users"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/DriverDatatable.html">DriverDatatable</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-user-plus"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/DriverEnrolment.html">DriverEnrolment</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-id-card"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/Enrolment.html">Enrolment</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-table"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/FinalDatatable.html">FinalDatatable</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/FinalEntol.html">FinalEntrol</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
 
             <!-- Column 2 -->
-            <div class="col-md-4">
-                <div class="card shadow-sm">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card animate__animated animate__fadeInUp">
                     <div class="card-body">
                         <h5 class="card-title">G-M Files</h5>
+                        <p class="card-text">Discover the range of files.</p>
                         <ul class="list-group">
-                            <a href="https://ajithjdx.github.io/AXDeveloper/FingerPrint.html" class="list-group-item list-group-item-action">FingerPrint</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/FontStyle.html" class="list-group-item list-group-item-action">FontStyle</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/FontStyledatatable.html" class="list-group-item list-group-item-action">FontStyledatatable</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/GstCheck.html" class="list-group-item list-group-item-action">GstCheck</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/Imagezoominout.html" class="list-group-item list-group-item-action">Imagezoomincout</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/InterNetspeed.html" class="list-group-item list-group-item-action">Internetspeed</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/Monitor.html" class="list-group-item list-group-item-action">Monitor</a>
+                            <li class="list-group-item">
+                                <i class="fas fa-fingerprint"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/FingerPrint.html">FingerPrint</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-font"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/FontStyle.html">FontStyle</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-table"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/FontStyledatatable.html">FontStyledatatable</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-check-circle"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/GstCheck.html">GstCheck</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-search-plus"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/Imagezoominout.html">Imagezoomincout</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-network-wired"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/InterNetspeed.html">Internetspeed</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-desktop"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/Monitor.html">Monitor</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
 
             <!-- Column 3 -->
-            <div class="col-md-4">
-                <div class="card shadow-sm">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card animate__animated animate__fadeInUp">
                     <div class="card-body">
                         <h5 class="card-title">N-Z Files</h5>
+                        <p class="card-text">Files and utilities .</p>
                         <ul class="list-group">
-                            <a href="https://ajithjdx.github.io/AXDeveloper/ScreenRC.html" class="list-group-item list-group-item-action">ScreenRC</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/ScreenRETwo.html" class="list-group-item list-group-item-action">ScreenRETwo</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/ScreenSizeFind.html" class="list-group-item list-group-item-action">ScreenSizeFind</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/TWOUrlEntrol.html" class="list-group-item list-group-item-action">TWOUrlEntrol</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/TexttoSpeech.html" class="list-group-item list-group-item-action">TexttoSpeech</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/index.html" class="list-group-item list-group-item-action">index</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/second_page.html" class="list-group-item list-group-item-action">second_page</a>
-                            <a href="https://ajithjdx.github.io/AXDeveloper/OpenDevToolsEruda.html" class="list-group-item list-group-item-action">OpenDevTools</a>
+                            <li class="list-group-item">
+                                <i class="fas fa-video"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/ScreenRC.html">ScreenRC</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-video"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/ScreenRETwo.html">ScreenRETwo</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-arrows-alt"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/ScreenSizeFind.html">ScreenSizeFind</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-link"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/TWOUrlEntrol.html">TWOUrlEntrol</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-volume-up"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/TexttoSpeech.html">TexttoSpeech</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-bullseye"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/UrlShortner.html">UrlShortner</a>
+                            </li>
+                            <li class="list-group-item">
+                                <i class="fas fa-user-alt"></i>
+                                <a href="https://ajithjdx.github.io/AXDeveloper/UserProfile.html">UserProfile</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="text-center">
+            <a href="https://ajithjdx.github.io/AXDeveloper/Geoloction.html" class="btn btn-custom animate__animated animate__fadeInUp">Explore More Files</a>
+        </div>
     </div>
 
+    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
