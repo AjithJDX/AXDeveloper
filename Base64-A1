@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Base64 Content Viewer</title>
+
+    <!-- Bootstrap 5.3 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- jQuery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Custom Styling & Animation -->
+    <style>
+        /* Background Animation */
+        body {
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            color: #f1f1f1;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .form-container:hover {
+            box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .content-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        img, video, iframe, pre {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+            animation: popIn 0.5s ease-in-out;
+        }
+
+        .btn-custom {
+            background-color: #5a67d8;
+            border: none;
+            color: #f9fafb;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            transform: scale(1.05);
+            background-color: #4c51bf;
+        }
+
+        .select-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .select-container i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #bbb;
+            font-size: 1.2rem;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h1>Base64 Content Viewer</h1>
+
+        <!-- Dropdown with Icon -->
+        <div class="select-container">
+            <label for="base64Type" class="form-label">Select Content Type</label>
+            <select id="base64Type" class="form-select">
+                <option value="auto">🔍 Auto-Detect</option>
+                <option value="image">📷 Image</option>
+                <option value="video">🎥 Video</option>
+                <option value="pdf">📄 PDF</option>
+                <option value="text">📝 Text</option>
+            </select>
+            <i class="fas fa-caret-down"></i>
+        </div>
+
+        <!-- Base64 Input -->
+        <div class="form-group mb-3">
+            <label for="base64Input" class="form-label">Enter Base64 String</label>
+            <textarea id="base64Input" class="form-control" rows="5" placeholder="Paste your Base64 data here..."></textarea>
+        </div>
+
+        <!-- Show Content Button -->
+        <div class="d-grid">
+            <button id="showContentBtn" class="btn btn-custom">Show Content</button>
+        </div>
+
+        <!-- Content Display -->
+        <div class="content-container mt-4">
+            <div id="imageContainer" style="display:none;">
+                <img id="outputImage" src="" alt="Base64 Image">
+            </div>
+            <div id="videoContainer" style="display:none;">
+                <video id="outputVideo" controls>
+                    <source id="videoSource" src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div id="pdfContainer" style="display:none;">
+                <iframe id="outputPdf" src="" style="width:100%; height:500px; border:none;" title="PDF Document"></iframe>
+            </div>
+            <div id="textContainer" style="display:none;">
+                <pre id="outputText"></pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#showContentBtn').click(function () {
+                let base64Data = $('#base64Input').val().trim();
+                let selectedType = $('#base64Type').val();
+
+                // Determine the prefix based on the selected type if it's missing
+                if (!base64Data.includes(',')) {
+                    if (selectedType === 'image') {
+                        base64Data = 'data:image/jpeg;base64,' + base64Data;
+                    } else if (selectedType === 'video') {
+                        base64Data = 'data:video/mp4;base64,' + base64Data;
+                    } else if (selectedType === 'pdf') {
+                        base64Data = 'data:application/pdf;base64,' + base64Data;
+                    } else if (selectedType === 'text') {
+                        base64Data = 'data:text/plain;base64,' + base64Data;
+                    }
+                }
+
+                // Hide all content containers
+                $('#imageContainer').hide();
+                $('#videoContainer').hide();
+                $('#pdfContainer').hide();
+                $('#textContainer').hide();
+
+                // Show content based on detected or selected type
+                if (selectedType === 'auto') {
+                    if (base64Data.startsWith('data:image')) {
+                        selectedType = 'image';
+                    } else if (base64Data.startsWith('data:video')) {
+                        selectedType = 'video';
+                    } else if (base64Data.startsWith('data:application/pdf')) {
+                        selectedType = 'pdf';
+                    } else {
+                        selectedType = 'text';
+                    }
+                }
+
+                if (selectedType === 'image' && base64Data.startsWith('data:image')) {
+                    $('#outputImage').attr('src', base64Data);
+                    $('#imageContainer').fadeIn();
+                } else if (selectedType === 'video' && base64Data.startsWith('data:video')) {
+                    $('#videoSource').attr('src', base64Data);
+                    $('#outputVideo').get(0).load();
+                    $('#videoContainer').fadeIn();
+                } else if (selectedType === 'pdf' && base64Data.startsWith('data:application/pdf')) {
+                    $('#outputPdf').attr('src', base64Data);
+                    $('#pdfContainer').fadeIn();
+                } else if (selectedType === 'text') {
+                    try {
+                        $('#outputText').text(atob(base64Data.split(',')[1] || base64Data));
+                        $('#textContainer').fadeIn();
+                    } catch (e) {
+                        alert('Invalid Base64 data for text.');
+                    }
+                } else {
+                    alert('Invalid Base64 data for the detected type.');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
