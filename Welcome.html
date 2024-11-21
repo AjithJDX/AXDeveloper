@@ -1,271 +1,538 @@
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Dashboard</title>
-    
-    <!-- Bootstrap 5.3.0 CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome for Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    
-    <!-- Animate.css for smooth animations -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    
-    <!-- Google Fonts for modern typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+     <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>Ultimate Modern Dashboard</title>
+          <link rel="icon" type="image/x-icon" href="icon.png" />
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #f7f7f7;
-            color: #333;
-            padding-top: 50px;
-        }
+          <!-- Bootstrap 5.3.0 CDN -->
+          <link
+               href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+               rel="stylesheet"
+          />
 
-        .card {
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: all 0.3s ease-in-out;
-        }
+          <!-- Font Awesome for Icons -->
+          <link
+               href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+               rel="stylesheet"
+          />
 
-      .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.2), -8px -8px 20px rgba(255, 255, 255, 0.7);
-        }
+          <!-- Google Fonts for modern typography -->
+          <link
+               href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+               rel="stylesheet"
+          />
 
-        .card-body {
-            padding: 30px;
-            background: linear-gradient(135deg, #1D5A8C, #4B9FC3);
-            color: #fff;
-        }
+          <style>
+               /* Global Styles */
+               body {
+                    font-family: "Poppins", sans-serif;
+                    background: #121212;
+                    color: #f1f1f1;
+                    padding-top: 50px;
+                    overflow-x: hidden;
+                    transition: background-color 0.3s ease;
+               }
 
-        .card-title {
-            font-size: 1.8rem;
-            font-weight: 600;
-        }
+               .container {
+                    max-width: 1200px;
+               }
 
-        .card-text {
-            font-size: 1.1rem;
-            color: #f1f1f1;
-            margin-bottom: 20px;
-        }
+               h6 {
+                    text-align: center;
+                    font-size: 1rem;
+                    font-weight: 700;
+                    color: #00bcd4;
+                    margin-bottom: 40px;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+               }
 
-        .list-group-item {
-            background-color: #ffffff;
-            font-size: 1.1rem;
-            padding: 18px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            border: 1px solid #ddd;
-        }
+               .card {
+                    border-radius: 20px;
+                    background: #2c2c2c;
+                    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.4),
+                         -10px -10px 20px rgba(255, 255, 255, 0.3);
+                    transition: all 0.3s ease;
+                    overflow: hidden;
+               }
 
-        .list-group-item:hover {
-            background-color: #f0f0f0;
-            transform: scale(1.05);
-        }
+               .card:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.5),
+                         -15px -15px 30px rgba(255, 255, 255, 0.5);
+               }
 
-        .list-group-item a {
-            color: #007bff;
-            text-decoration: none;
-            font-weight: 500;
-        }
+               .card-body {
+                    padding: 30px;
+                    background: rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(15px);
+                    border-radius: 10px;
+                    color: #f1f1f1;
+                    transition: background 0.3s ease;
+               }
 
-        .list-group-item a:hover {
-            color: #0056b3;
-        }
+               .card-body:hover {
+                    background: rgba(255, 255, 255, 0.2);
+               }
 
-        h1 {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 700;
-            color: #1D5A8C;
-            margin-bottom: 40px;
-        }
+               .card-title {
+                    font-size: 1.8rem;
+                    font-weight: 600;
+                    margin-bottom: 20px;
+               }
 
-        .container {
-            max-width: 1200px;
-        }
+               .card-text {
+                    font-size: 1.1rem;
+                    color: #ddd;
+                    margin-bottom: 20px;
+               }
 
-        /* Responsive Styles */
-        @media (max-width: 992px) {
-            .card-body {
-                padding: 20px;
-            }
+               .card-header {
+                    background-color: #00bcd4;
+                    color: #fff;
+                    font-size: 1.2rem;
+                    padding: 10px 20px;
+                    border-radius: 10px 10px 0 0;
+               }
 
-            h1 {
-                font-size: 2.5rem;
-            }
-        }
+               .glass-card {
+                    border-radius: 15px;
+                    background: rgba(255, 255, 255, 0.1);
+                    backdrop-filter: blur(15px);
+                    padding: 20px;
+                    color: #fff;
+                    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3);
+                    transition: all 0.3s ease;
+               }
 
-        @media (max-width: 768px) {
-            .row {
-                flex-direction: column;
-                justify-content: center;
-            }
+               .btn-custom {
+                    background: #00bcd4;
+                    color: #fff;
+                    border-radius: 30px;
+                    padding: 12px 30px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    transition: background 0.3s ease;
+                    border: none;
+               }
 
-            .col-md-4 {
-                margin-bottom: 30px;
-            }
-        }
+               .btn-custom:hover {
+                    background: #0288d1;
+                    color: #fff;
+                    transform: scale(1.05);
+               }
 
-        /* Button Styling */
-        .btn-custom {
-            background: #1D5A8C;
-            border-radius: 30px;
-            color: #fff;
-            padding: 10px 25px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 600;
-            transition: background 0.3s ease;
-        }
+               /* Progress bar */
+               .progress-bar-custom {
+                    background-color: #00bcd4;
+                    height: 20px;
+                    border-radius: 10px;
+                    transition: width 0.3s ease;
+               }
 
-        .btn-custom:hover {
-            background: #4B9FC3;
-            color: #fff;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1 class="animate__animated animate__fadeInUp">Modern Dashboard</h1>
+               .list-group-item {
+                    background-color: #333;
+                    border: none;
+                    padding: 18px;
+                    font-size: 1.1rem;
+                    border-radius: 10px;
+                    color: #f1f1f1;
+                    transition: all 0.3s ease;
+               }
 
-        <div class="row">
-            <!-- Column 1 -->
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card animate__animated animate__fadeInUp">
-                    <div class="card-body">
-                        <h5 class="card-title">A-F Files</h5>
-                        <p class="card-text">Explore various files </p>
-                       <ul class="list-group">
-                            <li class="list-group-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/Geoloction.html">Geolocation</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-image"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/Base64%20Image%20to%20PDF%20Converter.html">Base64 Image to PDF Converter</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-table"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/Datatable.html">Datatable</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-users"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/DriverDatatable.html">DriverDatatable</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-user-plus"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/DriverEnrolment.html">DriverEnrolment</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-id-card"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/Enrolment.html">Enrolment</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-table"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/FinalDatatable.html">FinalDatatable</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-check-circle"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/FinalEntol.html">FinalEntrol</a>
-                            </li>
-                        </ul>
+               .list-group-item:hover {
+                    background-color: #444;
+                    transform: scale(1.05);
+               }
+
+               .list-group-item a {
+                    color: #00bcd4;
+                    text-decoration: none;
+                    font-weight: 500;
+               }
+
+               .list-group-item a:hover {
+                    color: #0288d1;
+               }
+
+               /* Dark/Light Mode Toggle */
+               .toggle-btn {
+                    background: #00bcd4;
+                    color: white;
+                    border-radius: 30px;
+                    padding: 8px 20px;
+                    cursor: pointer;
+                    border: none;
+               }
+
+               /* Tooltip Styling */
+               .tooltip-inner {
+                    background-color: #00bcd4;
+               }
+
+               /* Smooth Scrolling */
+               html {
+                    scroll-behavior: smooth;
+               }
+
+               /* Animation when card comes into view */
+               .animate-scroll {
+                    opacity: 0;
+                    transition: opacity 1s ease-in-out;
+               }
+
+               .animate-scroll.visible {
+                    opacity: 1;
+               }
+
+               @media (max-width: 768px) {
+                    .card-body {
+                         padding: 20px;
+                    }
+
+                    .btn-custom {
+                         width: 100%;
+                         font-size: 1.2rem;
+                         padding: 12px 0;
+                    }
+               }
+          </style>
+     </head>
+
+     <body>
+          <div class="container">
+               <h6>Developer Modern Dashboard</h6>
+
+               <!-- Dark/Light Mode Toggle -->
+               <div class="d-flex justify-content-end mb-4">
+                    <!-- Toggle Button with Font Awesome Icons -->
+                    <button class="toggle-btn" onclick="toggleMode()">
+                         <i class="fas fa-moon"></i> Dark
+                         <!-- Default icon for Light Mode -->
+                    </button>
+               </div>
+
+               <div class="row">
+                    <!-- Column 1 -->
+                    <div class="col-lg-4 col-md-6 mb-4 animate-scroll">
+                         <div class="card">
+                              <div class="card-header">A-F Files</div>
+                              <div class="card-body">
+                                   <h5 class="card-title">Explore Resources</h5>
+                                   <ul class="list-group">
+                                        <li class="list-group-item">
+                                             <i class="fas fa-map-marker-alt"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/Geoloction.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Geolocation Resources"
+                                                  >Geolocation</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-image"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/Base64%20Image%20to%20PDF%20Converter.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Convert Base64 Image to PDF"
+                                                  >Base64 Image to PDF Converter</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-table"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/Datatable.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Data tables to manage records"
+                                                  >Datatable</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-users"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/DriverDatatable.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Driver data management in tables"
+                                                  >DriverDatatable</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-user-plus"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/DriverEnrolment.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Driver enrolment form"
+                                                  >DriverEnrolment</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-id-card"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/Enrolment.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="General enrolment form"
+                                                  >Enrolment</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-table"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/FinalDatatable.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Final Datatable overview"
+                                                  >FinalDatatable</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-check-circle"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/FinalEntol.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Final enrolment details"
+                                                  >FinalEntrol</a
+                                             >
+                                        </li>
+                                   </ul>
+                              </div>
+                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Column 2 -->
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card animate__animated animate__fadeInUp">
-                    <div class="card-body">
-                        <h5 class="card-title">G-M Files</h5>
-                        <p class="card-text">Discover the range of files.</p>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <i class="fas fa-fingerprint"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/FingerPrint.html">FingerPrint</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-font"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/FontStyle.html">FontStyle</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-table"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/FontStyledatatable.html">FontStyledatatable</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-check-circle"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/GstCheck.html">GstCheck</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-search-plus"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/Imagezoominout.html">Imagezoomincout</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-network-wired"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/InterNetspeed.html">Internetspeed</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-desktop"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/Monitor.html">Monitor</a>
-                            </li>
-                        </ul>
+                    <!-- Column 2 -->
+                    <div class="col-lg-4 col-md-6 mb-4 animate-scroll">
+                         <div class="card">
+                              <div class="card-header">G-M Files</div>
+                              <div class="card-body">
+                                   <h5 class="card-title">Advanced Features</h5>
+                                   <ul class="list-group">
+                                        <li class="list-group-item">
+                                             <i class="fas fa-image"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/Base64-A1.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Base64 Converter ALL IN ONE"
+                                                  >Base64 Converter ALL IN ONE</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-fingerprint"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/FingerPrint.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Fingerprint identification feature"
+                                                  >FingerPrint</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-font"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/FontStyle.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Font styling features"
+                                                  >FontStyle</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-table"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/FontStyledatatable.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Font styled data table"
+                                                  >FontStyledatatable</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-check-circle"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/GstCheck.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="GST check feature"
+                                                  >GstCheck</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-search-plus"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/Imagezoominout.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Image zoom in and out feature"
+                                                  >Imagezoomincout</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-network-wired"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/InterNetspeed.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Internet speed checker"
+                                                  >Internetspeed</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-desktop"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/Monitor.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Monitor system resources"
+                                                  >Monitor</a
+                                             >
+                                        </li>
+                                   </ul>
+                              </div>
+                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Column 3 -->
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card animate__animated animate__fadeInUp">
-                    <div class="card-body">
-                        <h5 class="card-title">N-Z Files</h5>
-                        <p class="card-text">Files and utilities .</p>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <i class="fas fa-video"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/ScreenRC.html">ScreenRC</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-video"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/ScreenRETwo.html">ScreenRETwo</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-arrows-alt"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/ScreenSizeFind.html">ScreenSizeFind</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-link"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/TWOUrlEntrol.html">TWOUrlEntrol</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-volume-up"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/TexttoSpeech.html">TexttoSpeech</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-bullseye"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/UrlShortner.html">UrlShortner</a>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fas fa-user-alt"></i>
-                                <a href="https://ajithjdx.github.io/AXDeveloper/UserProfile.html">UserProfile</a>
-                            </li>
-                        </ul>
+                    <!-- Column 3 -->
+                    <div class="col-lg-4 col-md-6 mb-4 animate-scroll">
+                         <div class="card">
+                              <div class="card-header">N-Z Files</div>
+                              <div class="card-body">
+                                   <h5 class="card-title">Clipboard Tools</h5>
+                                   <ul class="list-group">
+                                        <li class="list-group-item">
+                                             <i class="fas fa-video"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/ScreenRC.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Screen recording feature"
+                                                  >ScreenRC</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-video"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/ScreenRETwo.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Second version of screen recording"
+                                                  >ScreenRETwo</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-arrows-alt"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/ScreenSizeFind.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Find screen size"
+                                                  >ScreenSizeFind</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-link"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/TWOUrlEntrol.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Enter two URLs for processing"
+                                                  >TWOUrlEntrol</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-volume-up"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/TexttoSpeech.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Convert text to speech"
+                                                  >TexttoSpeech</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-bullseye"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/UrlShortner.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Shorten URLs"
+                                                  >UrlShortner</a
+                                             >
+                                        </li>
+                                        <li class="list-group-item">
+                                             <i class="fas fa-user-alt"></i>
+                                             <a
+                                                  href="https://ajithjdx.github.io/AXDeveloper/UserProfile.html"
+                                                  data-bs-toggle="tooltip"
+                                                  data-bs-placement="top"
+                                                  title="Manage user profile"
+                                                  >UserProfile</a
+                                             >
+                                        </li>
+                                   </ul>
+                              </div>
+                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+               </div>
 
-        <div class="text-center">
-            <a href="https://ajithjdx.github.io/AXDeveloper/Geoloction.html" class="btn btn-custom animate__animated animate__fadeInUp">Explore More Files</a>
-        </div>
-    </div>
+               <div class="text-center mt-5">
+                    <button class="btn-custom">View More</button>
+               </div>
+          </div>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+          <!-- jQuery, Bootstrap JS, and Font Awesome -->
+          <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+          <script>
+               $(document).ready(function () {
+                    // Initialize Mode on Page Load
+                    //toggleMode();
+                    // Scroll Animation for Visibility
+                    // $(window).on("scroll", function () {
+                    //      $(".animate-scroll").each(function () {
+                    //           if (
+                    //                $(this).offset().top <
+                    //                $(window).scrollTop() + $(window).height() - 100
+                    //           ) {
+                    //                $(this).addClass("visible");
+                    //           }
+                    //      });
+                    // });
+                    // Immediately display elements that should be visible by default
+                    $(".animate-scroll").addClass("visible");
+
+                    // Attach the toggle function to the button click event
+                    $(".toggle-btn").click(toggleMode);
+
+                    // Tooltip Initialization with jQuery
+                    $('[data-bs-toggle="tooltip"]').tooltip();
+               });
+
+               // Dark/Light Mode Toggle Function
+               function toggleMode() {
+                    var currentMode = $("body").css("backgroundColor");
+                    var toggleButton = $(".toggle-btn");
+
+                    if (currentMode === "rgb(18, 18, 18)") {
+                         // Dark mode check
+                         $("body").css({ backgroundColor: "#f1f1f1", color: "#121212" });
+                         toggleButton.html('<i class="fas fa-sun"></i> Light'); // Switch to sun icon for light mode
+                    } else {
+                         // Light mode check
+                         $("body").css({ backgroundColor: "#121212", color: "#f1f1f1" });
+                         toggleButton.html('<i class="fas fa-moon"></i> Dark'); // Switch to moon icon for dark mode
+                    }
+               }
+          </script>
+     </body>
 </html>
