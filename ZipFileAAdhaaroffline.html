@@ -1,173 +1,514 @@
 <!DOCTYPE html>
 <html lang="en">
-     <head>
-          <meta charset="UTF-8" />
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-          <title>Extract Aadhaar Data</title>
-          <link
-               href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-               rel="stylesheet"
-          />
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/@zip.js/zip.js@2.7.24/dist/zip.min.js"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-     </head>
-     <body class="bg-light">
-          <div class="container mt-5">
-               <div class="card shadow-lg border-0">
-                    <div class="card-header bg-primary text-white text-center">
-                         <h4><i class="bi bi-upload"></i> Upload Aadhaar ZIP File</h4>
-                    </div>
-                    <div class="card-body">
-                         <div class="mb-3">
-                              <input type="file" class="form-control" id="zipFileInput" />
-                         </div>
-                         <div class="mb-3">
-                              <input
-                                   type="password"
-                                   class="form-control"
-                                   id="zipPassword"
-                                   placeholder="Enter ZIP Password"
-                              />
-                         </div>
-                         <button class="btn btn-primary w-100" onclick="extractAndProcessXML()">
-                              <i class="bi bi-file-earmark-zip"></i> Extract & Process
-                         </button>
-                         <div id="output" class="mt-4"></div>
-                    </div>
-               </div>
-          </div>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aadhaar XML Processing</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@zip.js/zip.js/dist/zip.min.js"></script>
+    <style>
+body, html {
+	font-family: 'Alata', sans-serif;
+	height: 100%;
+	margin: 0;
+	justify-content: center;
+	align-items: center;
+	background-color: rgb(179, 243, 227);
+}
 
-          <script>
-               async function extractAndProcessXML() {
-                    const zipFileInput = document.getElementById("zipFileInput").files[0];
-                    const password = document.getElementById("zipPassword").value;
-                    const outputDiv = document.getElementById("output");
+#navbarNav {
+	justify-content: center;
+}
 
-                    if (!zipFileInput) {
-                         Swal.fire({ text: "Please select a ZIP file.", icon: "warning" });
-                         return;
+.left-content {
+	position: relative; /* Required for positioning the pseudo-element */
+	background-image:
+		url(https://img.freepik.com/premium-photo/hand-is-touching-digital-tablet-with-ring-it_1262781-46114.jpg?w=1060);
+	background-size: cover;
+	display: flex;
+	flex-direction: column;
+	color: rgb(250, 250, 250);
+	justify-content: center;
+	align-items: center;
+	padding: 40px;
+	box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+/* Add a pseudo-element for the overlay */
+.left-content::before {
+	content: ""; /* Empty content for the pseudo-element */
+	position: absolute; /* Position it over the content */
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3); /* Semi-transparent black overlay */
+	z-index: 1;
+	/* Place it above the background image but below the content */
+}
+
+/* Ensure text and other content is above the overlay */
+.left-content>* {
+	position: relative; /* Ensure content is above the overlay */
+	z-index: 2;
+}
+
+.left-content img {
+	width: 150px;
+	margin-bottom: 20px;
+}
+
+.right-content {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #fff;
+	box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+}
+
+.login-card {
+	width: 100%;
+	max-width: 400px;
+	padding: 20px;
+}
+
+.error {
+	color: red;
+	font-size: 14px;
+}
+
+.card-title {
+	color: #007bff;
+	font-weight: bold;
+}
+/* Style for result labels */
+.result-label {
+	font-weight: bold;
+	color: #0071eb;
+}
+/* Style for result values */
+.result-value {
+	margin-bottom: 0.5rem;
+	color: #555;
+}
+/* Ensure image responsiveness */
+#photo {
+	max-width: 100%;
+	height: auto;
+	border-radius: 0.5rem;
+	border: 2px solid #ddd;
+}
+/* Button styles */
+.btn-secondary {
+	background-color: #007bff;
+	border-color: #007bff;
+}
+
+.btn-secondary:hover {
+	background-color: #0056b3;
+	border-color: #004085;
+}
+/* Optional: Align values centrally within their columns */
+.col-md-4 {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+</style>
+<body>
+	<!-- Bootstrap Header -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark d-flex">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Developer</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse d-contents" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item"><a class="nav-link" style="color: #fff;"
+						aria-current="page" href="#">Welcome</a></li>
+					<li class="nav-item"><a class="nav-link" href="#"></a></li>
+					<li class="nav-item"><a class="nav-link" href="#"></a></li>
+					<li class="nav-item"><a class="nav-link " href="#"></a></li>
+					<li class="nav-item"><a class="nav-link active always-hover"
+						href="#"></a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container mt-5 cust-container"
+		style="display: flex; justify-content: center;">
+
+		<!-- Card for Form -->
+		<div id="formSection" class="card" style="width: 85%;">
+
+			<div class="login-container">
+				<div class="row">
+					<div class="col-md-5 left-content">
+						<h2 class="mb-3">Offline-AADHAAR eSign</h2>
+						<p style="font-size: smaller;">"For Offline-AADHAAR eSign, the process typically involves digitally signing a PAN document using an electronic signature mechanism like Aadhaar-based eSign. Below is a general structure for implementing such functionality, assuming you are integrating it into a web application."</p>
+					</div>
+					<div class="col-md-7 right-content">
+						<div class="login-card">
+							<h4 class="mb-4 text-center">ZIP_Aadhaar_Check</h4>
+							<form id="dataForm">
+								<div class="mb-3">
+									<label for="mobile" class="form-label">Mobile Number:</label> <input
+										type="text" class="form-control" id="mobile" name="mobile"
+										placeholder="Enter mobile number" value="">
+								</div>
+								<div class="mb-3">
+									<label for="xmlFileInput" class="form-label">Upload ZIP File:</label> <input type="file" class="form-control" id="zipFileInput" name="zipFileInput" accept=".zip">
+								</div>
+								<div class="mb-3">
+									<label for="passcode" class="form-label">Passcode:</label> <input
+										type="text" class="form-control" id="passcode" name="passcode"
+										placeholder="Enter passcode" value="1234">
+								</div>
+								<button type="button" class="btn btn-primary" id="checkButton">Check</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Results Section " -->
+
+		<div id="resultsSection" class="card d-none">
+			<div class="card-body">
+				<div class="row"
+					style="border-left: 3px solid blue; box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;">
+					<div class="col-12 mb-3">
+			<h5 style="margin-top: 1rem;">Verification Results</h5>
+					</div>
+				</div>
+
+				<!-- Left card with image and first three values -->
+				<div class="row mt-3">
+					<div class="col-md-5">
+						<div class="card mb-3"
+							style="box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-12 text-center">
+										<img id="photo" src="" alt="Your Photo" class="img-fluid mt-3"
+											style="box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;">
+									</div>
+									<div class="col-md-12 mt-3">
+										<div class="row">
+											<div class="col-md-4">
+												<div class="result-label">Name</div>
+												<div class="result-value" id="poiName"></div>
+											</div>
+											<div class="col-md-4">
+												<div class="result-label">Date of Birth</div>
+												<div class="result-value" id="dob"></div>
+											</div>
+											<div class="col-md-4">
+												<div class="result-label">Gender</div>
+												<div class="result-value" id="gender"></div>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12 text-left mt-3">
+							<button type="button" class="btn btn-secondary" id="backButton">Back</button>
+						</div>
+	</div>
+
+					<!-- Right card with other values -->
+					<div class="col-md-7">
+						<div class="card mb-3"
+							style="box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;">
+							<div class="card-body">
+								<div class="row mb-2">
+									<div class="col-md-6">
+										<div class="result-label">House</div>
+										<div class="result-value" id="poaHouse"></div>
+
+										<div class="result-label">Street</div>
+										<div class="result-value" id="poaStreet"></div>
+
+										<div class="result-label">District</div>
+										<div class="result-value" id="poaDistrict"></div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="result-label">State</div>
+										<div class="result-value" id="poaState"></div>
+
+										<div class="result-label">Pincode</div>
+										<div class="result-value" id="poaPincode"></div>
+
+										<div class="result-label">Country</div>
+										<div class="result-value" id="poaCountry"></div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="result-label">Careof</div>
+										<div class="result-value" id="poaCareof"></div>
+
+										<div class="result-label">Loc</div>
+										<div class="result-value" id="poaLoc"></div>
+									</div>
+
+									<div class="col-md-6">
+										<div class="result-label">Subdist</div>
+										<div class="result-value" id="poaSubdist"></div>
+
+										<div class="result-label">Vtc</div>
+										<div class="result-value" id="poaVtc"></div>
+
+										<div class="result-label">UID</div>
+										<div class="result-value" id="uid"></div>
+									</div>
+									<!--         
+                                    <div class="col-md-12 text-center mt-3">
+                                        <button type="button" class="btn btn-secondary" id="backButton">Back</button>
+                                    </div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<script>
+        $(document).ready(function () {
+            $("#formSection").removeClass("d-none").hide().slideDown(800);
+
+            // Initialize form validation
+            $('#dataForm').validate({
+                rules: {
+                    mobile: { required: true },
+                    passcode: { required: true },
+                    zipFileInput: { required: true }
+                },
+                messages: {
+                    mobile: { required: "Please enter your mobile number." },
+                    passcode: { required: "Please enter your passcode." },
+                    zipFileInput: { required: "Please upload a ZIP file." }
+                }
+            });
+
+            // Handle button click
+            $("#checkButton").click(async function () {
+                if (!$("#dataForm").valid()) {
+                    return;
+                }
+
+                var mobile = $("#mobile").val().trim();
+                var passcode = $("#passcode").val().trim();
+                var zipFileInput = $("#zipFileInput")[0].files[0];
+
+                if (!mobile || !passcode || !zipFileInput) {
+                    Swal.fire({
+                        text: "Please fill in all fields and upload a ZIP file.",
+                        icon: 'warning'
+                    });
+                    return;
+                }
+
+                try {
+                    // Extract and process the ZIP file
+                    const xmlContent = await extractAndProcessZIP(zipFileInput, passcode);
+
+                    if (!xmlContent) {
+                        Swal.fire({
+                            text: "No XML file found in the ZIP or incorrect password.",
+                            icon: 'error'
+                        });
+                        return;
                     }
 
-                    if (!password) {
-                         Swal.fire({ text: "Please enter the ZIP password.", icon: "warning" });
-                         return;
+                    // Process the XML content
+                    var data = processData(xmlContent);
+
+                    if (data) {
+                        var { referenceId, mobileHash } = data;
+
+                        var mobilePrefix = mobile;
+                        var aadhaarLastfour = referenceId.slice(0, 4);
+                        var aadhaarLastDigit = aadhaarLastfour.slice(-1);
+
+                        var hash = calculateHash(mobilePrefix, passcode, aadhaarLastDigit);
+
+                        if (hash === mobileHash) {
+                            Swal.fire({
+                                title: 'Match Found',
+                                text: 'Mobile Number matches the Uploaded XML.',
+                                icon: 'success'
+                            }).then(function () {
+                                // Hide form section with slide up
+                                $("#formSection").slideUp(500, function () {
+                                    // After the slide up is done, hide the section using 'd-none' and show the results section
+                                    $(".cust-container").css({ 'display': '', 'justify-content': '' });
+                                    $("#formSection").addClass("d-none");
+                                    $("#resultsSection").removeClass("d-none").hide().slideDown(500);
+                                });
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'No Match',
+                                text: 'Mobile Number does not match the Uploaded XML.',
+                                icon: 'error'
+                            });
+                        }
                     }
+                } catch (error) {
+                    Swal.fire({
+                        text: `Error processing ZIP file: ${error.message}`,
+                        icon: 'error'
+                    });
+                }
+            });
 
-                    outputDiv.innerHTML =
-                         '<div class="text-center"><div class="spinner-border text-primary"></div> Extracting...</div>';
+            // Handle the back button click
+            $("#backButton").click(function () {
+                // Hide results section with slide up
+                $("#resultsSection").slideUp(500, function () {
+                    // After the slide up, hide the section using 'd-none' and show the form section
+                    $(".cust-container").css({ 'display': 'flex', 'justify-content': 'center' });
+                    $("#resultsSection").addClass("d-none");
+                    $("#formSection").removeClass("d-none").hide().slideDown(500);
+                });
+            });
+        });
 
-                    try {
-                         zip.configure({ useWebWorkers: false });
+        // Function to calculate hash
+        function calculateHash(mobilePrefix, passcode, aadhaarLastDigit) {
+            var inputString = mobilePrefix + passcode;
+            var hash = inputString;
+            for (var i = 0; i < aadhaarLastDigit; i++) {
+                hash = CryptoJS.SHA256(hash).toString(CryptoJS.enc.Hex);
+            }
+            console.log("Resulting Hash after " + aadhaarLastDigit + " SHA-256 operations:", hash);
+            return hash;
+        }
 
-                         const reader = new zip.ZipReader(new zip.BlobReader(zipFileInput));
-                         const entries = await reader.getEntries();
+        // Function to extract and process ZIP file
+        async function extractAndProcessZIP(zipFile, password) {
+            try {
+                zip.configure({ useWebWorkers: false });
 
-                         if (entries.length === 0) {
-                              outputDiv.innerHTML = "Invalid ZIP file!";
-                              return;
-                         }
+                const reader = new zip.ZipReader(new zip.BlobReader(zipFile));
+                const entries = await reader.getEntries();
 
-                         let xmlContent = "";
-                         for (const entry of entries) {
-                              if (!entry.directory && entry.filename.endsWith(".xml")) {
-                                   const blob = await entry.getData(
-                                        new zip.BlobWriter("text/xml"),
-                                        { password: password }
-                                   );
-                                   xmlContent = await blob.text();
-                                   break;
-                              }
-                         }
+                if (entries.length === 0) {
+                    throw new Error("Invalid ZIP file!");
+                }
 
-                         await reader.close();
-
-                         if (!xmlContent) {
-                              outputDiv.innerHTML = "No XML file found in the ZIP!";
-                              return;
-                         }
-
-                         const data = processData(xmlContent);
-                         if (data) {
-                              displayData(data);
-                         }
-                    } catch (error) {
-                         outputDiv.innerHTML = `<div class="alert alert-danger">Error extracting ZIP: ${error.message}</div>`;
+                let xmlContent = "";
+                for (const entry of entries) {
+                    if (!entry.directory && entry.filename.endsWith(".xml")) {
+                        const blob = await entry.getData(
+                            new zip.BlobWriter("text/xml"),
+                            { password: password }
+                        );
+                        xmlContent = await blob.text();
+                        console.log("Extracted XML Content:", xmlContent); // Log the XML content
+                        break;
                     }
-               }
+                }
 
-               function processData(xmlString) {
-                    var parser = new DOMParser();
-                    var xmlDoc = parser.parseFromString(xmlString, "text/xml");
+                await reader.close();
 
-                    var rootElement = xmlDoc.querySelector("OfflinePaperlessKyc");
-                    var referenceId = rootElement
-                         ? rootElement.getAttribute("referenceId") || "N/A"
-                         : "N/A";
+                if (!xmlContent) {
+                    throw new Error("No XML file found in the ZIP!");
+                }
 
-                    var poiElement = xmlDoc.querySelector("Poi");
-                    var poaElement = xmlDoc.querySelector("Poa");
-                    var uidDataElement = xmlDoc.querySelector("UidData");
-                    var phtElement = xmlDoc.querySelector("Pht");
+                return xmlContent;
+            } catch (error) {
+                throw new Error(`Error extracting ZIP: ${error.message}`);
+            }
+        }
 
-                    if (!poiElement || !poaElement || !uidDataElement || !phtElement) {
-                         Swal.fire({ text: "XML structure is incomplete!", icon: "error" });
-                         return false;
-                    }
+        function processData(xmlString) {
+            if (typeof xmlString !== 'string') {
+                Swal.fire({
+                    text: "Internal Server Error",
+                    allowOutsideClick: false,
+                    icon: 'error'
+                });
+                console.error("xmlString is not a string");
+                return false;
+            }
 
-                    return {
-                         referenceId,
-                         poiName: poiElement.getAttribute("name") || "N/A",
-                         dob: poiElement.getAttribute("dob") || "N/A",
-                         gender: poiElement.getAttribute("gender") || "N/A",
-                         mobileHash: poiElement.getAttribute("m") || "N/A",
-                         poaHouse: poaElement.getAttribute("house") || "N/A",
-                         poaStreet: poaElement.getAttribute("street") || "N/A",
-                         poaDistrict: poaElement.getAttribute("dist") || "N/A",
-                         poaState: poaElement.getAttribute("state") || "N/A",
-                         poaPincode: poaElement.getAttribute("pc") || "N/A",
-                         poaCountry: poaElement.getAttribute("country") || "N/A",
-                         uid: uidDataElement.getAttribute("uid") || "N/A",
-                         phtContent: phtElement.textContent || "",
-                    };
-               }
+            var formattedXmlString = xmlString.replace(/(\w+="[^"]*")(?! )/g, '$1 ');
+            var parser = new DOMParser();
+            var xmlDoc = parser.parseFromString(formattedXmlString, "text/xml");
 
-               function displayData(data) {
-                    const outputDiv = document.getElementById("output");
-                    outputDiv.innerHTML = `
-                <div class="card shadow-lg border-0 mt-3">
-                    <div class="card-header bg-success text-white text-center">
-                        <h5><i class="bi bi-person-badge"></i> Aadhaar Details</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-3 text-center">
-                                <img src="data:image/png;base64,${data.phtContent}" class="rounded-circle border img-fluid" alt="Photo" width="100">
-                            </div>
-                            <div class="col-md-9">
-                                <p><strong>Reference ID:</strong> ${data.referenceId}</p>
-                                <p><strong>Name:</strong> ${data.poiName}</p>
-                                <p><strong>DOB:</strong> ${data.dob}</p>
-                                <p><strong>Gender:</strong> ${data.gender}</p>
-                                <p><strong>Mobile Hash:</strong> ${data.mobileHash}</p>
-                            </div>
-                        </div>
-                        <hr>
-                        <h5><i class="bi bi-geo-alt"></i> Address</h5>
-                        <p><strong>House:</strong> ${data.poaHouse}</p>
-                        <p><strong>Street:</strong> ${data.poaStreet}</p>
-                        <p><strong>District:</strong> ${data.poaDistrict}</p>
-                        <p><strong>State:</strong> ${data.poaState}</p>
-                        <p><strong>Pincode:</strong> ${data.poaPincode}</p>
-                        <p><strong>Country:</strong> ${data.poaCountry}</p>
-                        <hr>
-                        <h5><i class="bi bi-card-checklist"></i> UID</h5>
-                        <p><strong>UID:</strong> ${data.uid}</p>
-                    </div>
-                </div>
-            `;
-               }
-          </script>
-     </body>
+            var rootElement = xmlDoc.querySelector("OfflinePaperlessKyc");
+            var referenceId = rootElement ? rootElement.getAttribute("referenceId") || "N/A" : "N/A";
+
+            var poiElement = xmlDoc.querySelector("Poi");
+            var poaElement = xmlDoc.querySelector("Poa");
+            var uidDataElement = xmlDoc.querySelector("UidData");
+            var phtElement = xmlDoc.querySelector("Pht");
+
+            if (poiElement && poaElement && uidDataElement && phtElement) {
+                var poiName = poiElement.getAttribute("name") || "N/A";
+                var dob = poiElement.getAttribute("dob") || "N/A";
+                var gender = poiElement.getAttribute("gender") || "N/A";
+                var mobileHash = poiElement.getAttribute("m") || "N/A";
+                var poaHouse = poaElement.getAttribute("house") || "N/A";
+                var poaStreet = poaElement.getAttribute("street") || "N/A";
+                var poaDistrict = poaElement.getAttribute("dist") || "N/A";
+                var poaState = poaElement.getAttribute("state") || "N/A";
+                var poaPincode = poaElement.getAttribute("pc") || "N/A";
+                var poaCountry = poaElement.getAttribute("country") || "N/A";
+                var poaCareof = poaElement.getAttribute("careof") || "N/A";
+                var poaLoc = poaElement.getAttribute("loc") || "N/A";
+                var poaPost = poaElement.getAttribute("po") || "N/A";
+                var poaSubdist = poaElement.getAttribute("subdist") || "N/A";
+                var poaVtc = poaElement.getAttribute("vtc") || "N/A";
+                var uid = uidDataElement.getAttribute("uid") || "N/A";
+                var phtContent = phtElement.textContent;
+
+                $("#photo").attr("src", 'data:image/png;base64,' + phtContent);
+                $("#poiName").text(poiName);
+                $("#dob").text(dob);
+                $("#gender").text( gender);
+                $("#poaHouse").text(poaHouse);
+                $("#poaStreet").text( poaStreet);
+                $("#poaDistrict").text(poaDistrict);
+                $("#poaState").text(poaState);
+                $("#poaPincode").text(poaPincode);
+                $("#poaCountry").text(poaCountry);
+                $("#poaCareof").text( poaCareof);
+                $("#poaLoc").text(poaLoc);
+                $("#poaPost").text(poaPost);
+                $("#poaSubdist").text(poaSubdist);
+                $("#poaVtc").text(poaVtc);
+                $("#uid").text(referenceId);
+
+                return { referenceId, mobileHash };
+            } else {
+                Swal.fire({
+                    text: "The uploaded XML file is missing required elements. Please upload a valid XML file.",
+                    icon: 'error'
+                });
+                return null;
+            }
+   }
+    </script>
+</body>
 </html>
