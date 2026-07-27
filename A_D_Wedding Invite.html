@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding Reception Invitation</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Poppins,sans-serif;
+overflow:hidden;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(-45deg,#ff758c,#ff7eb3,#ffb199,#ffd194);
+background-size:400% 400%;
+animation:bg 12s ease infinite;
+}
+
+@keyframes bg{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* Floating Hearts */
+
+.hearts{
+position:absolute;
+width:100%;
+height:100%;
+overflow:hidden;
+z-index:0;
+}
+
+.hearts span{
+position:absolute;
+bottom:-100px;
+font-size:25px;
+animation:float 12s linear infinite;
+opacity:.8;
+}
+
+.hearts span:nth-child(1){left:5%;animation-duration:9s;}
+.hearts span:nth-child(2){left:18%;animation-duration:12s;}
+.hearts span:nth-child(3){left:32%;animation-duration:10s;}
+.hearts span:nth-child(4){left:48%;animation-duration:13s;}
+.hearts span:nth-child(5){left:60%;animation-duration:11s;}
+.hearts span:nth-child(6){left:72%;animation-duration:9s;}
+.hearts span:nth-child(7){left:84%;animation-duration:12s;}
+.hearts span:nth-child(8){left:95%;animation-duration:10s;}
+
+@keyframes float{
+
+0%{
+transform:translateY(0) rotate(0deg);
+opacity:0;
+}
+
+30%{
+opacity:1;
+}
+
+100%{
+transform:translateY(-120vh) rotate(360deg);
+opacity:0;
+}
+
+}
+
+.card{
+
+position:relative;
+z-index:2;
+width:90%;
+max-width:650px;
+padding:45px;
+text-align:center;
+background:rgba(255,255,255,.15);
+border:1px solid rgba(255,255,255,.3);
+backdrop-filter:blur(15px);
+border-radius:25px;
+box-shadow:0 20px 60px rgba(0,0,0,.3);
+animation:fade 2s;
+}
+
+@keyframes fade{
+
+from{
+opacity:0;
+transform:translateY(60px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+h1{
+
+font-family:'Great Vibes',cursive;
+font-size:65px;
+color:#fff;
+margin-bottom:15px;
+text-shadow:0 5px 10px rgba(0,0,0,.25);
+
+}
+
+h2{
+
+color:#fff;
+font-weight:600;
+margin-bottom:20px;
+
+}
+
+p{
+
+color:#fff;
+line-height:1.8;
+font-size:17px;
+margin-bottom:18px;
+
+}
+
+.info{
+
+font-size:20px;
+font-weight:600;
+margin:12px 0;
+
+}
+
+.btn{
+
+display:inline-block;
+margin-top:20px;
+padding:15px 35px;
+border-radius:40px;
+background:#fff;
+color:#ff4d79;
+font-weight:bold;
+text-decoration:none;
+transition:.4s;
+
+}
+
+.btn:hover{
+
+background:#ff4d79;
+color:#fff;
+transform:scale(1.08);
+
+}
+
+.footer{
+
+margin-top:30px;
+font-size:18px;
+font-weight:500;
+
+}
+
+.blink{
+
+animation:blink 1.5s infinite;
+
+}
+
+@keyframes blink{
+
+50%{
+opacity:.4;
+}
+
+}
+
+@media(max-width:600px){
+
+h1{
+font-size:48px;
+}
+
+.card{
+padding:30px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="hearts">
+
+<span>❤️</span>
+<span>💖</span>
+<span>💕</span>
+<span>💗</span>
+<span>💝</span>
+<span>💞</span>
+<span>💓</span>
+<span>❤️</span>
+
+</div>
+
+<div class="card">
+
+<h1>Wedding Reception</h1>
+
+<h2>💍 You're Invited 💍</h2>
+
+<p>
+
+With immense joy and heartfelt love,
+we warmly invite you and your family
+to celebrate our Wedding Reception.
+
+</p>
+
+<div class="info">
+🗓️ <b>22 August 2026 (Saturday)</b>
+</div>
+
+<div class="info">
+⏰ <b>5:00 PM Onwards</b>
+</div>
+
+<div class="info">
+📍 <b>R. Rajathy Thirumana Mahal</b><br>
+Chinna Salem
+</div>
+
+<p>
+
+Your love, presence, and blessings
+will make our special day truly unforgettable.
+
+</p>
+
+<a class="btn"
+href="https://maps.app.goo.gl/xGvQSNiWwPANH92y8"
+target="_blank">
+
+📍 View Location
+
+</a>
+
+<div class="footer blink">
+
+❤️ We look forward to celebrating with you ❤️
+
+</div>
+
+</div>
+
+<!-- Optional Background Music -->
+
+<!--
+<audio autoplay loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+-->
+
+</body>
+</html>
